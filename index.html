@@ -650,8 +650,18 @@ footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-fa
       if(cur.ok)sha=(await cur.json()).sha;else if(cur.status!==404){throw {status:cur.status};}
       const put=await gh('PUT',API+'/contents/'+PATH,{message:'Update resume ('+new Date().toISOString().slice(0,10)+')',content,branch:BRANCH,sha});
       if(!put.ok)throw {status:put.status};
-      say('Published. The site updates in 1-2 minutes. Hard-refresh (Ctrl+Shift+R) to see it.','ok');
       $('o-live').href='./resume.pdf?v='+Date.now();
+      // version stamp: every resume link on the site becomes resume.pdf?v=<version>, so browsers can never serve a cached old file
+      try{
+        let jsha;const cj=await gh('GET',API+'/contents/resume.json?ref='+BRANCH);
+        if(cj.ok)jsha=(await cj.json()).sha;else if(cj.status!==404)throw {status:cj.status};
+        const stamp=JSON.stringify({version:String(Date.now()),file:f.name,updated:new Date().toISOString()});
+        const pj=await gh('PUT',API+'/contents/resume.json',{message:'Update resume version',content:btoa(stamp),branch:BRANCH,sha:jsha});
+        if(!pj.ok)throw {status:pj.status};
+        say('Published. The site updates in 1-2 minutes, and visitors will get the new file straight away.','ok');
+      }catch(e2){
+        say('Resume published, but the version stamp failed. Some browsers may show the old file for up to 10 minutes.','err');
+      }
     }catch(e){
       const st=e&&e.status;
       say(st===401?'Token rejected. Disconnect and connect again.'
@@ -858,6 +868,15 @@ const WF = [
     for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const d=Math.hypot(pts[i].x-pts[j].x,pts[i].y-pts[j].y);
       if(d<120){ctx.strokeStyle=`rgba(77,142,255,${.12*(1-d/120)})`;ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke();}}
     requestAnimationFrame(draw);})();
+})();
+</script>
+<script>
+// Adds the current resume version to every resume link so a freshly published PDF is never hidden by browser cache.
+(function(){
+  fetch('./resume.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).then(j=>{
+    if(!j||!j.version)return;const v=encodeURIComponent(j.version);
+    document.querySelectorAll('a[href^="./resume.pdf"]').forEach(a=>a.setAttribute('href','./resume.pdf?v='+v));
+  }).catch(()=>{});
 })();
 </script>
 </body>
