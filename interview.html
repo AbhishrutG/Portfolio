@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Interview Q&amp;A — Abhishrut Giradkar</title>
+<meta name="description" content="Plain-language answers on running automation in production: errors, scaling, failures at 3 AM, and how I work with AI tools without trusting them blindly." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0e0e0e;--surface:#1a1a1a;--surface2:#222;--border:#2a2a2a;--border-accent:rgba(173,198,255,.25);--text:#e5e2e1;--text-muted:#8c909f;--blue:#adc6ff;--blue-bright:#4d8eff;--cyan:#4cd7f6;--orange:#ffb786;--green:#22c55e;--mono:'JetBrains Mono',ui-monospace,monospace}
+html{scroll-behavior:smooth;scroll-padding-top:150px}
+body{background:var(--bg);color:var(--text);font-family:'Geist',system-ui,sans-serif;font-size:16px;line-height:1.65;overflow-x:hidden}
+::selection{background:rgba(77,142,255,.3)}
+code{font-family:var(--mono);font-size:.85em;background:rgba(255,255,255,.06);padding:1px 6px;border-radius:3px;color:var(--blue)}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+a{color:inherit}
+
+.top{position:sticky;top:0;z-index:50;background:rgba(14,14,14,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.top-in{max-width:920px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.back{font-family:var(--mono);font-size:12px;color:var(--blue);text-decoration:none;letter-spacing:.06em}
+.back:hover{color:var(--cyan)}
+.search{flex:1;max-width:340px;background:#0e0e0e;border:1px solid var(--border-accent);border-radius:8px;padding:8px 12px;color:var(--text);font-family:inherit;font-size:14px}
+.search::placeholder{color:var(--text-muted)}
+
+main{max-width:920px;margin:0 auto;padding:56px 24px 96px}
+.label{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--cyan);text-transform:uppercase;margin-bottom:12px}
+h1{font-size:clamp(30px,5vw,44px);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:16px}
+h1 span{color:var(--blue)}
+.lead{color:var(--text-muted);font-size:17px;max-width:680px;margin-bottom:12px}
+.note{font-size:13px;color:var(--text-muted);border-left:2px solid var(--border-accent);padding-left:12px;max-width:680px;margin-bottom:28px}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{background:transparent;border:1px solid var(--border);color:var(--text-muted);border-radius:100px;padding:7px 14px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;cursor:pointer;transition:all .2s}
+.chip:hover{color:var(--text);border-color:var(--border-accent)}
+.chip[aria-pressed="true"]{background:rgba(77,142,255,.12);border-color:var(--blue-bright);color:var(--blue)}
+.chip small{opacity:.6;margin-left:5px}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:18px 0 20px;font-family:var(--mono);font-size:11px;color:var(--text-muted)}
+.link-btn{background:none;border:none;color:var(--blue);font-family:var(--mono);font-size:11px;cursor:pointer;letter-spacing:.06em}
+.link-btn:hover{color:var(--cyan)}
+
+.group{margin-bottom:40px}
+.group h2{font-size:20px;letter-spacing:-.02em;margin-bottom:4px}
+.group .gdesc{color:var(--text-muted);font-size:14px;margin-bottom:16px}
+details{background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:10px;transition:border-color .2s}
+details[open]{border-color:var(--border-accent)}
+summary{list-style:none;cursor:pointer;padding:16px 48px 16px 20px;font-weight:600;font-size:16px;position:relative;line-height:1.4}
+summary::-webkit-details-marker{display:none}
+summary::after{content:'+';position:absolute;right:20px;top:14px;font-family:var(--mono);font-size:20px;color:var(--blue);transition:transform .2s}
+details[open] summary::after{content:'–'}
+.ans{padding:0 20px 20px;color:var(--text-muted);font-size:15px}
+.ans p{margin-bottom:12px}
+.ans strong{color:var(--text);font-weight:500}
+.ans ul{margin:0 0 14px 0;list-style:none;display:grid;gap:7px}
+.ans li{padding-left:18px;position:relative}
+.ans li::before{content:'▹';position:absolute;left:0;color:var(--blue-bright)}
+.box{border-radius:10px;padding:12px 14px;margin-top:6px;font-size:14px}
+.box b{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;margin-bottom:4px}
+.box.mine{background:rgba(76,215,246,.06);border:1px solid rgba(76,215,246,.2)}
+.box.mine b{color:var(--cyan)}
+.box.next{background:rgba(255,183,134,.06);border:1px solid rgba(255,183,134,.22);margin-top:10px}
+.box.next b{color:var(--orange)}
+.empty{display:none;text-align:center;color:var(--text-muted);padding:48px 0}
+footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-family:var(--mono);font-size:11px;color:var(--text-muted)}
+@media (max-width:640px){.top-in{padding:10px 16px}main{padding:40px 16px 72px}.search{max-width:none}summary{font-size:15px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="top-in">
+  <a class="back" href="./index.html">← PORTFOLIO</a>
+  <input class="search" id="q" type="search" placeholder="Search questions…" aria-label="Search questions" />
+</div></header>
+
+<main>
+  <div class="label">Interview Q&amp;A</div>
+  <h1>How my automation behaves <span>in the real world</span></h1>
+  <p class="lead">The questions teams ask to find out whether an automation is really production-ready, answered in plain language.</p>
+  <p class="note">Each answer has a blue <b style="color:var(--cyan)">In my system</b> box describing what is actually built and running at GetRepaired.de. Anything I would add but have not built yet is marked <b style="color:var(--orange)">Next step</b>.</p>
+
+  <div class="chips" id="chips" role="group" aria-label="Filter by topic"></div>
+  <div class="bar"><span id="count"></span><span><button type="button" class="link-btn" id="expand">EXPAND ALL</button> · <button type="button" class="link-btn" id="collapse">COLLAPSE ALL</button></span></div>
+  <div id="list"></div>
+  <div class="empty" id="empty">No questions match. Try a shorter search.</div>
+</main>
+
+<footer>AG.AI · © 2026 Abhishrut Giradkar · <a href="./index.html" style="color:var(--blue)">Back to portfolio</a></footer>
+
+<script>
+const CATS=[
+ {id:'prod',  t:'Production readiness', d:'Moving from "works on my machine" to running every day without me.'},
+ {id:'fail',  t:'Failures & errors',    d:'What breaks, who finds out, and how the system recovers.'},
+ {id:'scale', t:'Scale & performance',  d:'What happens when there is a lot more work at once.'},
+ {id:'data',  t:'Data, duplicates & APIs', d:'Keeping data clean when webhooks repeat and APIs push back.'},
+ {id:'ops',   t:'Security & operations', d:'Secrets, hosting, backups, versioning and handover.'},
+ {id:'exp',   t:'Experience & decisions', d:'Real incidents, trade-offs and what I would improve.'},
+ {id:'qa',    t:'Solution design, QA & AI', d:'How I find gaps, work with an AI coding agent, and keep it honest.'},
+ {id:'onb',   t:'Partner onboarding', d:'Document verification, rules and sensitive data.'}
+];
+
+/* ------------------------------------------------------------------
+   REAL NUMBERS: fill these in once you have them (leave null until then).
+   Get them from PostgreSQL, for example:
+     SELECT count(*) FROM google_business_leads;          -> leadsDiscovered
+     SELECT count(*) FROM verified_leads;                 -> leadsVerified
+     SELECT sum(contact_attempts) FROM verified_leads;    -> emailsSent
+   When leadsDiscovered is set, the "how many leads" answer shows them.
+------------------------------------------------------------------- */
+const LIVE={leadsDiscovered:null,leadsVerified:null,emailsSent:null,since:null};
+const fmt=n=>Number(n).toLocaleString('en-US');
+function liveLine(){
+  if(LIVE.leadsDiscovered==null)return [];
+  const parts=[`${fmt(LIVE.leadsDiscovered)} shops discovered`];
+  if(LIVE.leadsVerified!=null)parts.push(`${fmt(LIVE.leadsVerified)} verified`);
+  if(LIVE.emailsSent!=null)parts.push(`${fmt(LIVE.emailsSent)} outreach emails sent`);
+  return [`<strong>Totals so far${LIVE.since?' (since '+LIVE.since+')':''}:</strong> ${parts.join(', ')}.`];
+}
+
+const QA=[
+/* ---------- PRODUCTION READINESS ---------- */
+{c:'prod',q:'It works in testing but fails in production. How do you debug it and make it production-ready?',
+ a:'I do not guess. I find the difference between the two environments, reproduce the failure with the real data that broke it, fix it in a copy, then release carefully and watch the next run.',
+ pts:['<strong>Look at the failed execution first.</strong> It shows exactly which step failed and what data went in.',
+      '<strong>List the usual differences:</strong> credentials and settings, test vs production webhook URLs, real data being messier than test data, much larger volume, timeouts, API rate limits, time zones and schedules.',
+      '<strong>Reproduce with the real input.</strong> I copy the failing data into a test copy of the workflow and change one thing at a time.',
+      '<strong>Release small.</strong> Run with a low cap first, check results in the database, then raise the limit.',
+      '<strong>Make it production-ready:</strong> error workflow attached, retries on flaky calls, validation of inputs, safe re-runs (no duplicates), daily caps, alerts, and the workflow saved in version control.'],
+ mine:'A real example: the lead-nurturing entry point worked in testing but production returned a Cloudflare 524 timeout because it did slow work before replying. I changed it to reply immediately and process afterwards. Business-hours checks and the Europe/Berlin time zone are set explicitly on the sales and outreach workflows so schedules behave the same in production.'},
+
+{c:'prod',q:'What is your checklist before you call a workflow "production-ready"?',
+ a:'It must survive bad input, outages and repeats without me watching it.',
+ pts:['Inputs are validated and bad ones are logged, not ignored.','Flaky external calls retry; non-critical steps do not stop the whole run.','Running it twice does not create duplicates or double-send emails.','An error workflow is attached so failures reach a human.','There is a cap on volume so one mistake cannot send hundreds of emails.','Credentials are in the credential store, not in the workflow.','It is documented and the JSON is committed to version control.'],
+ mine:'Every pipeline workflow follows this pattern: input validation, guard checks (for example, only start nurturing a lead whose status is <code>new</code>), upserts, caps, error workflow and a Git-backed export.'},
+
+{c:'prod',q:'How do you test automations safely when they touch real customers?',
+ a:'I never test on live recipients or on the live workflow directly.',
+ pts:['Work on a copy of the workflow, with test data, and use n8n\'s test execution with pinned data.','Send test emails and messages only to my own addresses.','Compare the result in the database against what I expected before switching the real one on.','Keep the old version archived so I can switch back.'],
+ mine:'Workflow versions live in <code>workflows/active</code> and <code>workflows/archive</code> in a private repository; old versions (for example an earlier synchronous nurturing entry point) are archived rather than deleted.'},
+
+/* ---------- FAILURES ---------- */
+{c:'fail',q:'What happens when the automation fails at 3 AM and you are not available?',
+ a:'It is built so a single failure does not need me at that moment. Most problems fix themselves, the rest reach me with enough detail to fix in the morning, and a dangerous one wakes someone up.',
+ pts:['<strong>Retry first.</strong> Temporary problems (an API hiccup) are retried automatically.','<strong>Isolate.</strong> One bad lead is skipped so the other 199 still process.','<strong>Alert.</strong> A central error workflow emails which workflow and node failed and why.','<strong>Safe to resume.</strong> Progress lives in the database (status columns), so the next run continues where it stopped, with no duplicates.','<strong>Morning check.</strong> A daily report lists failed executions from the last 24 hours.','<strong>Escalate real emergencies.</strong> Server alerts are classified; critical ones go to email and WhatsApp.'],
+ mine:'Built and running: retries on the Google Places and website calls, <code>continue on error</code> on non-critical nodes, a central Error Trigger workflow that emails the failure, a daily 08:00 monitoring report that pulls failed executions from the n8n API, and a server-alert webhook that sends critical alerts by email and WhatsApp.',
+ next:'The error handler currently emails only. I would also write each error to a database table so I can see trends over weeks, and add a "pause the workflow after N consecutive failures" rule.'},
+
+{c:'fail',q:'How do you handle errors in your workflows?',
+ a:'In layers, so each kind of problem is handled at the cheapest level.',
+ pts:['<strong>Prevent:</strong> validate input and check guard conditions before doing anything costly.','<strong>Retry:</strong> repeat temporary failures a few times with a short wait.','<strong>Contain:</strong> let non-critical nodes continue on error so one bad record does not kill a batch.','<strong>Report:</strong> a central error workflow tells a human what failed.','<strong>Recover:</strong> keep state in the database so a re-run is safe.'],
+ mine:'The Google Places search retries 3 times with a 3-second wait; the website fetch in enrichment retries twice; up to 11 nodes in a single workflow are set to continue on error; invalid webhook calls get a proper "invalid" response and are logged instead of crashing.'},
+
+{c:'fail',q:'How do you stop retries from making things worse (duplicate emails, double charges)?',
+ a:'A retry is only safe if repeating the action has no extra effect. That property is called idempotency, and I design for it before I add retries.',
+ pts:['Use "upsert" (insert or update) with a unique key instead of plain insert.','Record that an action happened (<code>last_contacted</code>, <code>contact_attempts</code>) and check it before acting again.','Check status first: only act on leads in the expected state.','Cap the number of actions per run.'],
+ mine:'Discovery upserts on the Google place ID, so scanning a shop twice updates the row. Outreach only picks leads with <code>contact_attempts = 0</code> for a first email, and follow-ups only when <code>contact_attempts &lt; 3</code> and the follow-up date has passed. Duplicate-email protection was added after I found a case that needed it.'},
+
+{c:'fail',q:'How do you monitor automations so you know before the client does?',
+ a:'Three levels: each failure, a daily summary, and the server itself.',
+ pts:['Per failure: an error workflow sends details immediately.','Daily: a report with lead counts and failed executions.','Infrastructure: health checks and server alerts by severity.'],
+ mine:'Error workflow (email), daily monitoring report at 08:00 that includes failed executions from the n8n API, a 5-minute uptime health check, and a server-alert webhook that routes critical alerts to email and WhatsApp, warnings to email, and logs info.'},
+
+{c:'fail',q:'What if an external API (Google, email, WhatsApp) goes down or rate-limits you?',
+ a:'Expect it. Retry briefly, slow down, and never lose the work.',
+ pts:['Retry with a wait for temporary errors such as HTTP 429 or 5xx.','Process in small batches with a pause between them.','Keep the leads in the database with a status, so the next scheduled run simply tries again.','Alert if it keeps failing.'],
+ mine:'Google Places calls retry 3 times; the conversion outreach workflow sends in batches with a wait step between them; leads that did not get processed stay in their previous status and are picked up on the next run.',
+ next:'My waits are fixed. For heavier APIs I would use a growing delay (exponential backoff).'},
+
+/* ---------- SCALE ---------- */
+{c:'scale',q:'Suddenly there are a huge number of leads at once and the automation slows down. What do you do?',
+ a:'First find where the time is going, then fix the real bottleneck. Usually it is one of: a slow external API, a heavy step that processes everything in memory, or everything running in one place.',
+ pts:['<strong>Measure.</strong> Look at execution times per node to find the slow step.','<strong>Batch.</strong> Process in chunks (for example 200 at a time) instead of everything at once.','<strong>Answer fast, work later.</strong> A webhook replies immediately and the heavy work continues in the background.','<strong>Split the workflow.</strong> Separate the busy part (tracking clicks) from the slow part (sending email) so one does not block the other.','<strong>Use the database as a queue.</strong> Status columns mean work waits safely instead of being dropped.','<strong>Respect the downstream limits.</strong> Pause between batches so an API or mail server does not block you.','<strong>Scale the engine.</strong> Move n8n to queue mode with Redis and several workers.'],
+ mine:'Already in place: batching (enrichment reads up to 200 leads per run, outreach is capped per run), a wait step between sends, asynchronous webhook responses, a nurturing flow split into three separate workflows (entry, scheduler, tracking) so tracking traffic never slows email sending, and database status columns as the queue.',
+ next:'If volume grew many times over I would switch n8n to queue mode (main process + Redis + workers), add database indexes on the columns I filter by, and run webhook handling on dedicated processors. The server is already self-hosted on Docker, so this is a configuration step, not a rebuild.'},
+
+{c:'scale',q:'So far, how many leads has your automation handled, and is it live in production?',
+ a:'Yes, it is live in production for GetRepaired.de, running on schedules every day. I can tell you what it is designed to handle and what the numbers in the database say, and I keep those two things separate.',
+ pts:[...liveLine(),'<strong>Capacity by design:</strong> enrichment takes up to 200 new leads per daily run, so roughly 1,400 leads a week can pass through before I change anything.','<strong>Per run:</strong> the enrichment step is built to take up to 200 new leads each day.','<strong>Per scan:</strong> one scan of a city and category runs 36 search queries against Google Places.','<strong>Outreach:</strong> deliberately capped at 20 emails a day (10 first contacts + 10 follow-ups) to protect the sender\'s reputation.','<strong>Tracking:</strong> every email open and click is handled one by one by a separate always-on webhook.'],
+ mine:'Volume here is intentionally modest. This is B2B outreach to repair shops, so the real limit is email deliverability, not computing power. The design handles bigger batches; the daily cap is a business decision, not a technical ceiling. Lifetime totals come directly from the <code>google_business_leads</code> and <code>verified_leads</code> tables.'},
+
+{c:'scale',q:'How do you stop one slow or broken run from blocking everything else?',
+ a:'Keep workflows small and independent, and connect them through data, not through waiting on each other.',
+ pts:['Each workflow does one job and has its own schedule.','Hand work over through database status, not by one workflow waiting for another.','Use sub-workflows or separate workflows so a failure stays local.'],
+ mine:'The four discovery workflows (scan, enrich, sales report, outreach) run on separate schedules and pass data through PostgreSQL, so a failure in enrichment does not stop outreach from running on already-verified leads.'},
+
+/* ---------- DATA ---------- */
+{c:'data',q:'How do you avoid duplicate leads and duplicate emails?',
+ a:'Use a unique key, check before you act, and record what you did.',
+ pts:['A unique identifier (Google place ID) with upsert for discovered shops.','A duplicate check before creating a lead from a webhook.','Contact history (<code>contact_attempts</code>, <code>last_contacted</code>) checked before every send.','Status guards so a lead already in nurturing is never started again.'],
+ mine:'All of the above are in the pipeline. One honest limitation: if two identical webhooks arrive in the same instant, a "search then create" check can let both through. The strongest protection is a unique constraint in the database, which the PostgreSQL lead tables use.'},
+
+{c:'data',q:'What if the same webhook fires twice, or an event is missed?',
+ a:'Assume both happen. Make the handler safe to run twice, and make sure the sender gets a quick answer so it does not retry unnecessarily.',
+ pts:['Reply fast, then process.','Make processing idempotent so a repeat changes nothing.','Respond clearly for each case: success, duplicate, invalid.','For must-not-lose events, put a queue or the database in front.'],
+ mine:'The lead-capture webhooks answer with explicit success / duplicate / invalid responses, and the nurturing entry point replies immediately.'},
+
+{c:'data',q:'How do you deal with messy or incomplete data?',
+ a:'Clean it at the door, score it, and reject what is not good enough, but keep a record of why.',
+ pts:['Normalize formats (phone numbers, postcodes).','Remove obvious junk (chains, closed businesses).','Score quality and use a threshold.','Mark rejected records instead of deleting them.'],
+ mine:'Phone numbers are normalized to +49 format and postcodes extracted; large chains and permanently closed businesses are filtered out (25 chain names); enrichment scores each lead and only those with score 2 or higher continue; the rest are marked <code>rejected</code>, not deleted.'},
+
+{c:'data',q:'How do you handle API rate limits?',
+ a:'Slow down on purpose, retry on 429, and design so being slow is fine.',
+ pts:['Batch requests and wait between batches.','Retry on 429 / 5xx with a pause.','Cap work per run and spread it across the day.'],
+ mine:'Google Places retries 3 times; outreach is capped at 20 a day; conversion emails go out in batches with a wait.'},
+
+/* ---------- OPS ---------- */
+{c:'ops',q:'How do you handle security and secrets?',
+ a:'Secrets never live inside workflows or code that is shared.',
+ pts:['Store keys in n8n\'s credential store.','Never commit configuration files that contain tokens.','Use HTTPS, restrict server access, keep the database private.','Validate everything that arrives from outside (webhook payloads).'],
+ mine:'The server runs behind Nginx with SSL and a restricted firewall; the workflow repository is private and the file with the MCP connection details is excluded from commits.',
+ next:'For partner-facing webhooks I would add a shared secret or signature check on every call.'},
+
+{c:'ops',q:'Why self-host n8n instead of using a hosted tool like Zapier or n8n Cloud?',
+ a:'Cost and control. Self-hosting means no per-task fees and the data stays on my own server.',
+ pts:['No pricing based on number of runs.','Full control of data, which matters for business and personal information.','Can run custom JavaScript and own webhooks without limits.'],
+ mine:'n8n runs self-hosted on a Hetzner server with Docker, Nginx and SSL, with PostgreSQL alongside it and automated daily database backups.',
+ next:'The trade-off is that I am responsible for updates, backups and uptime, which is why I built the health checks and server alerts.'},
+
+{c:'ops',q:'How do you version, back up and roll back your workflows?',
+ a:'Treat workflows like code: every change is saved and can be reverted.',
+ pts:['Export workflow JSON to a Git repository after each change.','Keep an archive folder for retired versions.','Back up the database on a schedule.'],
+ mine:'Workflows are committed to a private repository with <code>active</code> and <code>archive</code> folders and a commit per change; the database is backed up daily.'},
+
+{c:'ops',q:'How do you make sure someone else can take over your automations?',
+ a:'Clear names, one job per workflow, and written explanations.',
+ pts:['Descriptive node and workflow names.','A short document per system explaining what each part does and why it is split.','Version history that shows what changed and when.'],
+ mine:'The nurturing system has a node-by-node document explaining the purpose of each workflow and why it was split into three; this portfolio\'s workflow explorer is generated from one data list.'},
+
+{c:'ops',q:'How do you think about compliance (GDPR, cold email rules)?',
+ a:'It is a design input, not an afterthought, and the legal decision belongs to the business owner.',
+ pts:['Collect only the data that is needed.','Limit how often someone can be contacted and stop after a fixed number of attempts.','Keep sensitive documents private with restricted access.'],
+ mine:'Outreach stops after 3 attempts and is capped per day; partner documents in the onboarding design are private, access-controlled and never used for AI training.',
+ next:'Cold email to businesses in Germany has strict rules. I would confirm the legal basis and unsubscribe handling with the client before scaling outreach.'},
+
+/* ---------- EXPERIENCE ---------- */
+{c:'exp',q:'Tell me about a time something broke in production and how you fixed it.',
+ a:'I use a few real ones. They show I find the cause rather than patching symptoms.',
+ pts:['<strong>Cloudflare 524 timeouts:</strong> the nurturing entry workflow replied only after finishing slow work. Fix: reply immediately, process after.','<strong>Browser warnings on tracked links:</strong> long tracking URLs triggered Chrome warnings. Fix: shorter, clean tracking URLs and an instant redirect on click.','<strong>Duplicate outreach emails:</strong> added duplicate-prevention filters, then fixed a template-selection bug.','<strong>Notification flood:</strong> enrichment was sending one email per record. Fix: merge results and send a single summary.'],
+ mine:'Each of these is in the commit history of the workflow repository, with the fix described.'},
+
+{c:'exp',q:'What was the hardest part of this project?',
+ a:'Keeping a long, multi-step funnel reliable when each part uses a different tool and fails differently.',
+ pts:['Different timing (instant webhooks vs scheduled jobs) had to work together.','Email tracking had to work without a third-party service.','I changed data sources mid-project and moved the discovery data into PostgreSQL, so the workflows had to be migrated step by step.'],
+ mine:'I moved discovery from a search-scraping service plus Airtable to the Google Places API plus PostgreSQL, then migrated enrichment, sales pipeline and outreach to the same database.'},
+
+{c:'exp',q:'Why did you split lead nurturing into three workflows?',
+ a:'One large workflow becomes slow, hard to debug and hard to change.',
+ pts:['<strong>Entry point</strong> runs once per lead.','<strong>Scheduler</strong> runs every 30 minutes and sends the right email.','<strong>Tracker</strong> is always on and handles opens and clicks.','I can change email content without touching tracking, and a spike in tracking traffic does not delay sending.']},
+
+{c:'exp',q:'What would you improve next?',
+ a:'I name my own gaps.',
+ pts:['Connect lead generation to lead capture so an interested shop flows in without manual steps.','Write errors to a database table for trend analysis.','Move n8n to queue mode if volume grows.','Add signature checks on partner-facing webhooks.','Add AI-assisted verification to partner onboarding, with human review for low-confidence cases.']},
+
+{c:'exp',q:'Why n8n over Make or Zapier?',
+ a:'For a system this size I wanted control over code, data and cost.',
+ pts:['Custom JavaScript in Code nodes.','Webhooks I own and can shape.','No per-run pricing, so a polling workflow every 30 minutes costs nothing extra.','Self-hosting keeps business data on my server.']},
+
+/* ---------- QA / AI ---------- */
+{c:'qa',q:'How do you identify gaps in a website or product?',
+ a:'I use it the way each type of user would, end to end, and compare what happens with what should happen.',
+ pts:['Walk every journey as each role: customer, partner, admin.','Compare against the written flow or user story.','Look for things that do nothing, show the wrong text, or lead nowhere.','Write each issue as: steps to reproduce, what I expected, what happened.','Prioritise: broken money or login flows first, broken features second, cosmetic last.'],
+ mine:'Issues I found this way include partner dashboard buttons that did nothing, an admin login where typed text was invisible, a document viewer that opened a blank tab, and a profile update blocked by a permissions check.'},
+
+{c:'qa',q:'Are you relying on AI 100% to build and fix things?',
+ a:'No. AI is a fast builder, but I own the problem, the design and the sign-off. The split is clear.',
+ pts:['<strong>I decide:</strong> what is wrong, how the flow should work, what "done" looks like.','<strong>The AI agent implements:</strong> it turns my brief into code quickly.','<strong>I verify:</strong> I test in the live app against my expectations and send it back if it does not match.','<strong>Nothing ships on "it says it works".</strong> It ships when I have seen it work.'],
+ mine:'The same way a product owner works with a development team: the team writes the code, the owner defines the requirement and accepts or rejects the result.'},
+
+{c:'qa',q:'How do you stop an AI tool from hallucinating or breaking things?',
+ a:'I reduce the risk with structure, and I check the result. Verification lowers the chance of errors; it does not remove it, so I never skip it.',
+ pts:['<strong>Give it real context.</strong> The project keeps a notes file describing the architecture, so the agent works from facts, not guesses.','<strong>Write a precise brief:</strong> current behaviour, expected behaviour, what must not change, and a way to test it.','<strong>One change at a time.</strong> Small requests are easier to check and to undo.','<strong>Ask it to explain.</strong> I ask which files changed and why, in plain language, and check that nothing unrelated was touched.','<strong>Test the result, not the claim.</strong> I try the exact steps, then check neighbouring features for regressions.','<strong>Check against ground truth.</strong> Data in the database, official documentation for APIs, the written spec.','<strong>Separate commits.</strong> Each fix is its own commit so a bad one can be reverted.','<strong>Do not loop.</strong> If a fix fails twice, I go back to the design instead of asking the AI to try again blindly.']},
+
+{c:'qa',q:'What do you do when the AI-made fix breaks something else?',
+ a:'Revert, find out why, and give a narrower brief.',
+ pts:['Roll back to the last good commit.','Describe exactly what broke and what must stay unchanged.','Add that case to my regression checklist so it is tested every time.']},
+
+{c:'qa',q:'How do you write a good brief for an AI coding agent?',
+ a:'The same way you write a good ticket.',
+ pts:['<strong>Context:</strong> which page or flow, which user role.','<strong>Problem:</strong> what happens now.','<strong>Expected:</strong> what should happen, including edge cases.','<strong>Constraints:</strong> what not to change.','<strong>Acceptance test:</strong> the exact steps I will use to check it.']},
+
+{c:'qa',q:'How do you test, and what do you do about regressions?',
+ a:'I test behaviour from the user\'s side and keep a checklist per role.',
+ pts:['Repeat the original steps that failed.','Test the neighbours: other tabs, other roles, other languages.','Test sensitive areas deliberately: login, admin access, anything involving documents or payments.','Keep the list of past bugs and re-check them after each release.'],
+ mine:'The platform supports many languages, and one of the fixes was exactly this kind of regression: error messages that were hard-coded in German were switched to translation keys.'},
+
+{c:'qa',q:'Where would you NOT trust AI output?',
+ a:'Anywhere a wrong answer is costly or hard to notice.',
+ pts:['Security and access control (who can see what).','Money and legal logic.','Anything that quietly changes data.','Claims about APIs or libraries I have not checked in the documentation.'],
+ mine:'In those areas my rule is to test the failure cases, for example whether an admin-only page refuses someone who is not an admin, and not only the happy path.'},
+
+/* ---------- ONBOARDING ---------- */
+{c:'onb',q:'How do you design document requirements that depend on the type of business?',
+ a:'With a rules engine, not a fixed list. The system decides what each partner needs.',
+ pts:['Legal form and registration status are the inputs.','Rules produce: required, not applicable, or configurable.','Example: a registered company must provide a Handelsregister extract, an ordinary sole trader without registration does not, and must not be blocked for it.','New requirements are added as rules, without rebuilding the flow.'],
+ mine:'The portfolio\'s onboarding section has a live demo of these rules.'},
+
+{c:'onb',q:'AI will read partners\' documents. How do you stop it from making wrong decisions?',
+ a:'I never ask the AI "is this business compliant?". I ask small, checkable questions, and a person decides the uncertain ones.',
+ pts:['Specific checks: is this the right type of document, is it readable, does the name and address match the profile, is the insurance still valid.','Rules first, AI second: fixed rules and official checks do what they can; AI helps with reading and extraction.','Confidence threshold: if the AI is unsure, the case goes to an admin.','Three outcomes only: pass, review, or action required, each with a clear reason.','Every result and decision is recorded in an audit log.']},
+
+{c:'onb',q:'How do you protect sensitive partner documents?',
+ a:'Assume they are confidential from the first upload.',
+ pts:['No public links to documents; access only for authorised admins.','Encryption in transit and at rest, and access logging.','Retention and deletion rules.','Documents are never used to train AI models.']},
+
+{c:'onb',q:'How do you handle changes such as a new NDA version?',
+ a:'Store which version each partner accepted, not just that they accepted.',
+ pts:['Record version, partner, time and who accepted.','Never ask again for the same version.','When a new version is published, existing partners are asked to accept it.']},
+
+{c:'onb',q:'How do you know the onboarding feature is actually finished?',
+ a:'Against written acceptance criteria, not a feeling.',
+ pts:['The specification lists the checks: registration, email verification, version-based NDA, dynamic checklist, correct Handelsregister behaviour, document statuses, admin review, audit log, and a rule that a partner cannot become active early.','Each one is tested and ticked off before I call it done.']}
+];
+
+/* ---------- render ---------- */
+(function(){
+  const list=document.getElementById('list'),chips=document.getElementById('chips'),q=document.getElementById('q'),count=document.getElementById('count'),empty=document.getElementById('empty');
+  let cat='all';
+  const strip=h=>h.replace(/<[^>]*>/g,'').toLowerCase();
+  const counts={all:QA.length};CATS.forEach(c=>counts[c.id]=QA.filter(x=>x.c===c.id).length);
+  chips.innerHTML=[{id:'all',t:'All'}].concat(CATS).map(c=>`<button type="button" class="chip" data-c="${c.id}" aria-pressed="${c.id===cat}">${c.t.toUpperCase()}<small>${counts[c.id]}</small></button>`).join('');
+  const item=(x,i)=>`<details data-i="${i}"><summary>${x.q}</summary><div class="ans"><p>${x.a||''}</p>${x.pts?`<ul>${x.pts.map(p=>`<li>${p}</li>`).join('')}</ul>`:''}${x.mine?`<div class="box mine"><b>IN MY SYSTEM</b>${x.mine}</div>`:''}${x.next?`<div class="box next"><b>NEXT STEP</b>${x.next}</div>`:''}</div></details>`;
+  function render(){
+    const term=q.value.trim().toLowerCase();let shown=0,html='';
+    CATS.forEach(c=>{
+      if(cat!=='all'&&cat!==c.id)return;
+      const rows=QA.map((x,i)=>[x,i]).filter(([x])=>x.c===c.id&&(!term||strip(x.q+' '+x.a+' '+(x.pts||[]).join(' ')+' '+(x.mine||'')+' '+(x.next||'')).includes(term)));
+      if(!rows.length)return;shown+=rows.length;
+      html+=`<section class="group"><h2>${c.t}</h2><p class="gdesc">${c.d}</p>${rows.map(([x,i])=>item(x,i)).join('')}</section>`;
+    });
+    list.innerHTML=html;empty.style.display=shown?'none':'block';
+    count.textContent=shown+' of '+QA.length+' questions';
+  }
+  chips.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;cat=b.dataset.c;chips.querySelectorAll('.chip').forEach(n=>n.setAttribute('aria-pressed',n===b));render();});
+  q.addEventListener('input',render);
+  document.getElementById('expand').addEventListener('click',()=>list.querySelectorAll('details').forEach(d=>d.open=true));
+  document.getElementById('collapse').addEventListener('click',()=>list.querySelectorAll('details').forEach(d=>d.open=false));
+  render();
+})();
+</script>
+</body>
+</html>
