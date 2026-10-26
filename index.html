@@ -559,7 +559,7 @@ footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-fa
 </section>
 </main>
 
-<footer><span id="owner-unlock" style="color:var(--blue)">AG.AI</span> &nbsp;·&nbsp; © 2026 Abhishrut Giradkar &nbsp;·&nbsp; <a href="./interview.html" style="color:var(--blue)">Interview Q&amp;A</a></footer>
+<footer><span id="owner-unlock" style="color:var(--blue);display:inline-block;padding:12px 10px;margin:-12px -10px;user-select:none;cursor:default">AG.AI</span> &nbsp;·&nbsp; © 2026 Abhishrut Giradkar &nbsp;·&nbsp; <a href="./interview.html" style="color:var(--blue)">Interview Q&amp;A</a></footer>
 
 <!-- OWNER-ONLY RESUME PANEL: unlocked with Ctrl+Alt+O or 5 clicks on the footer logo. File lives only in this browser (IndexedDB). -->
 <div id="owner-panel" hidden>
@@ -599,7 +599,7 @@ footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-fa
     return rec;
   }
   function show(on){btn.hidden=!on;if(!on)panel.hidden=true;}
-  function unlock(){flag.set(true);show(true);panel.hidden=false;refresh();}
+  let unlock=function(){flag.set(true);show(true);panel.hidden=false;refresh();};
 
   btn.addEventListener('click',()=>{panel.hidden=!panel.hidden;if(!panel.hidden)refresh();});
   document.getElementById('o-lock').addEventListener('click',()=>{flag.set(false);show(false);});
@@ -615,11 +615,30 @@ footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-fa
     const a=document.createElement('a');a.href=URL.createObjectURL(r.blob);a.download=r.name;a.click();});
   bRm.addEventListener('click',async()=>{if(confirm('Remove the saved resume from this browser?')){await tx('readwrite',s=>s.delete('resume'));refresh();}});
 
-  // hidden unlock: Ctrl+Alt+O, or click the footer logo 5 times quickly
-  document.addEventListener('keydown',e=>{if(e.ctrlKey&&e.altKey&&e.key.toLowerCase()==='o'){e.preventDefault();unlock();}});
+  // Three ways in (all hidden from visitors):
+  //  1) open the site with #owner on the end of the address (bookmark it)
+  //  2) press Ctrl+Alt+O  3) click the footer "AG.AI" 5 times quickly
+  function toast(msg){
+    const t=document.createElement('div');t.textContent=msg;
+    t.style.cssText="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:300;background:var(--surface);border:1px solid var(--cyan);color:var(--text);padding:10px 18px;border-radius:8px;font-size:13px;font-family:'JetBrains Mono',monospace";
+    document.body.appendChild(t);setTimeout(()=>t.remove(),2600);
+  }
+  const _unlock=unlock;
+  unlock=function(){_unlock();toast('Owner mode on - use the "My Resume" button in the top bar');};
+  function viaUrl(){
+    if(/(^|[#?&])owner(=|&|$)/.test(location.hash+location.search)){
+      unlock();
+      try{history.replaceState(null,'',location.pathname)}catch(e){}
+    }
+  }
+  document.addEventListener('keydown',e=>{
+    if(e.ctrlKey&&e.altKey&&(e.code==='KeyO'||String(e.key).toLowerCase()==='o')){e.preventDefault();unlock();}
+  });
   let clicks=0,timer;
   document.getElementById('owner-unlock').addEventListener('click',()=>{
     clearTimeout(timer);timer=setTimeout(()=>clicks=0,1500);if(++clicks>=5){clicks=0;unlock();}});
+  addEventListener('hashchange',viaUrl);
+  viaUrl();
 
   if(flag.get())show(true);
 })();
