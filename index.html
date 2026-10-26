@@ -34,7 +34,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 40px;display:fl
 .nav-links{display:flex;gap:28px;list-style:none}
 .nav-links a{color:var(--text-muted);text-decoration:none;font-size:14px;transition:color .2s}
 .nav-links a:hover{color:var(--text)}
-.nav-resume{background:var(--blue-bright);color:#fff;border:none;padding:8px 18px;border-radius:6px;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;box-shadow:0 0 20px var(--glow-blue)}
+.nav-resume{text-decoration:none;display:inline-block;background:var(--blue-bright);color:#fff;border:none;padding:8px 18px;border-radius:6px;font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;box-shadow:0 0 20px var(--glow-blue)}
 
 /* LAYOUT */
 section{padding:110px 40px;max-width:1280px;margin:0 auto}
@@ -236,7 +236,10 @@ footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-fa
     <li><a href="#contact">Contact</a></li>
     <li><a href="./interview.html" style="color:var(--cyan)">Interview Q&amp;A ↗</a></li>
   </ul>
-  <button type="button" id="owner-btn" class="nav-resume" hidden>🔒 My Resume</button>
+  <div style="display:flex;gap:10px;align-items:center">
+    <a href="./resume.pdf" target="_blank" rel="noopener" class="nav-resume" id="public-resume">Resume ↗</a>
+    <button type="button" id="owner-btn" class="nav-resume" style="background:transparent;border:1px solid var(--border-accent);box-shadow:none" hidden>🔒 Owner</button>
+  </div>
 </nav>
 
 <main>
@@ -252,6 +255,7 @@ footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-fa
     </p>
     <div class="hero-btns">
       <a href="#automation" class="btn-primary">Explore the workflows →</a>
+      <a href="./resume.pdf" target="_blank" rel="noopener" class="btn-outline">↓ Download Resume</a>
       <a href="#onboarding" class="btn-outline">What I'm building now</a>
     </div>
     <div class="stats-row">
@@ -555,6 +559,7 @@ footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-fa
     <a href="https://linkedin.com/in/abhishrutgiradkar" target="_blank" rel="noopener" class="contact-link"><span style="font-size:22px">💼</span><span class="contact-link-label">LINKEDIN</span></a>
     <a href="https://github.com/AbhishrutG" target="_blank" rel="noopener" class="contact-link"><span style="font-size:22px">🐙</span><span class="contact-link-label">GITHUB</span></a>
     <a href="tel:+919503697952" class="contact-link"><span style="font-size:22px">📱</span><span class="contact-link-label">PHONE</span></a>
+    <a href="./resume.pdf" target="_blank" rel="noopener" class="contact-link"><span style="font-size:22px">📄</span><span class="contact-label contact-link-label">RESUME</span></a>
   </div>
 </section>
 </main>
@@ -563,8 +568,9 @@ footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-fa
 
 <!-- OWNER-ONLY RESUME PANEL: unlocked with Ctrl+Alt+O or 5 clicks on the footer logo. File lives only in this browser (IndexedDB). -->
 <div id="owner-panel" hidden>
-  <h4>Private resume</h4>
+  <h4>Resume (owner only)</h4>
   <p id="owner-status">No resume saved in this browser.</p>
+  <p style="font-size:11px;line-height:1.5">Visitors see <code>resume.pdf</code> on the site. This is your private working copy. To publish a new version, replace <code>resume.pdf</code> in the GitHub repo.</p>
   <div class="o-row">
     <button type="button" class="o-primary" id="o-upload">Upload / Replace</button>
     <button type="button" id="o-view" disabled>View</button>
