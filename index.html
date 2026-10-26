@@ -207,16 +207,20 @@ footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-fa
   .kv{grid-template-columns:1fr}
 }
 
-/* OWNER-ONLY RESUME (hidden from visitors) */
+/* OWNER TOOLS (hidden from visitors) */
 #owner-btn[hidden],#owner-panel[hidden]{display:none}
-#owner-panel{position:fixed;top:68px;right:24px;z-index:200;width:290px;background:var(--surface);border:1px solid var(--border-accent);border-radius:10px;padding:18px;box-shadow:0 12px 40px rgba(0,0,0,.5);font-family:'Geist',sans-serif}
-#owner-panel h4{font-size:13px;margin:0 0 4px;color:var(--text)}
-#owner-panel p{font-size:12px;color:var(--text-muted);margin:0 0 12px;word-break:break-word}
-#owner-panel .o-row{display:flex;flex-wrap:wrap;gap:8px}
+#owner-panel{position:fixed;top:68px;right:24px;z-index:200;width:330px;max-width:calc(100vw - 32px);background:var(--surface);border:1px solid var(--border-accent);border-radius:10px;padding:18px;box-shadow:0 12px 40px rgba(0,0,0,.5);font-family:'Geist',sans-serif}
+#owner-panel h4{font-size:13px;margin:0 0 10px;color:var(--text);display:flex;align-items:center;gap:8px}
+.o-tag{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--cyan);border:1px solid rgba(76,215,246,.3);border-radius:3px;padding:1px 6px;font-weight:400;letter-spacing:.06em}
+#owner-panel p{font-size:12px;color:var(--text-muted);margin:0 0 12px;word-break:break-word;line-height:1.55}
+#owner-panel a{color:var(--blue)}
+#owner-panel .o-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 #owner-panel button{background:transparent;color:var(--text);border:1px solid var(--border-accent);border-radius:6px;padding:7px 12px;font-size:12px;cursor:pointer;font-family:inherit}
 #owner-panel button:hover{border-color:var(--blue);color:var(--blue)}
 #owner-panel button.o-primary{background:var(--blue-bright);border-color:var(--blue-bright);color:#fff}
-#owner-panel button:disabled{opacity:.4;cursor:default}
+#owner-panel button:disabled{opacity:.5;cursor:default}
+#owner-panel input[type=password]{width:100%;background:#0e0e0e;border:1px solid var(--border-accent);border-radius:6px;padding:8px 10px;color:var(--text);font-size:12px;margin-bottom:8px;font-family:'JetBrains Mono',monospace}
+#o-status.ok{color:var(--green)}#o-status.err{color:var(--red)}
 
 </style>
 </head>
@@ -566,90 +570,117 @@ footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-fa
 
 <footer><span id="owner-unlock" style="color:var(--blue);display:inline-block;padding:12px 10px;margin:-12px -10px;user-select:none;cursor:default">AG.AI</span> &nbsp;·&nbsp; © 2026 Abhishrut Giradkar &nbsp;·&nbsp; <a href="./interview.html" style="color:var(--blue)">Interview Q&amp;A</a></footer>
 
-<!-- OWNER-ONLY RESUME PANEL: unlocked with Ctrl+Alt+O or 5 clicks on the footer logo. File lives only in this browser (IndexedDB). -->
-<div id="owner-panel" hidden>
-  <h4>Resume (owner only)</h4>
-  <p id="owner-status">No resume saved in this browser.</p>
-  <p style="font-size:11px;line-height:1.5">Visitors see <code>resume.pdf</code> on the site. This is your private working copy. To publish a new version, replace <code>resume.pdf</code> in the GitHub repo.</p>
-  <div class="o-row">
-    <button type="button" class="o-primary" id="o-upload">Upload / Replace</button>
-    <button type="button" id="o-view" disabled>View</button>
-    <button type="button" id="o-download" disabled>Download</button>
-    <button type="button" id="o-remove" disabled>Remove</button>
-    <button type="button" id="o-lock">Lock</button>
+<!-- OWNER TOOLS: opened with #owner on the address, Ctrl+Alt+O, or 5 clicks on the footer logo. Visitors never see this.
+     Publishing commits resume.pdf to the GitHub repo using a token that stays in the owner's browser. -->
+<div id="owner-panel" hidden role="dialog" aria-label="Owner tools">
+  <h4>Resume <span class="o-tag">OWNER ONLY</span></h4>
+  <p>Live resume: <a id="o-live" href="./resume.pdf" target="_blank" rel="noopener">resume.pdf ↗</a></p>
+  <div id="o-connect">
+    <p>To publish a new resume from here, connect GitHub once. <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Create a token ↗</a> limited to the <code>Portfolio</code> repository with <b>Contents: Read and write</b>, then paste it below.</p>
+    <input type="password" id="o-token" placeholder="Paste GitHub token" autocomplete="off" spellcheck="false" />
+    <div class="o-row"><button type="button" class="o-primary" id="o-save">Connect</button></div>
   </div>
-  <input type="file" id="o-file" accept="application/pdf,.pdf,.doc,.docx" hidden>
+  <div id="o-publish" hidden>
+    <p>Choose your new PDF. It replaces the resume everyone sees on the site.</p>
+    <div class="o-row">
+      <button type="button" class="o-primary" id="o-upload">Upload &amp; publish</button>
+      <button type="button" id="o-forget">Disconnect</button>
+    </div>
+  </div>
+  <p id="o-status" style="margin:12px 0 0"></p>
+  <div class="o-row" style="margin-top:12px"><button type="button" id="o-lock">Lock owner mode</button></div>
+  <input type="file" id="o-file" accept="application/pdf,.pdf" hidden>
 </div>
 <script>
 (function(){
-  const btn=document.getElementById('owner-btn'),panel=document.getElementById('owner-panel'),
-        status=document.getElementById('owner-status'),file=document.getElementById('o-file'),
-        bView=document.getElementById('o-view'),bDl=document.getElementById('o-download'),bRm=document.getElementById('o-remove');
-  const FLAG='ag_owner';
-  const flag={get(){try{return localStorage.getItem(FLAG)==='1'}catch(e){return false}},
-              set(v){try{v?localStorage.setItem(FLAG,'1'):localStorage.removeItem(FLAG)}catch(e){}}};
+  const OWNER='AbhishrutG',REPO='Portfolio',PATH='resume.pdf',BRANCH='main',MAX=5*1024*1024;
+  const API='https://api.github.com/repos/'+OWNER+'/'+REPO;
+  const $=id=>document.getElementById(id);
+  const btn=$('owner-btn'),panel=$('owner-panel'),statusEl=$('o-status'),file=$('o-file'),
+        connect=$('o-connect'),publish=$('o-publish'),tokenIn=$('o-token');
+  const TOKEN='ag_gh_token',FLAG='ag_owner';
+  // unlock lasts for this tab only; the token is kept in this browser until you disconnect
+  const sess={get:()=>{try{return sessionStorage.getItem(FLAG)==='1'}catch(e){return false}},
+              set:v=>{try{v?sessionStorage.setItem(FLAG,'1'):sessionStorage.removeItem(FLAG)}catch(e){}}};
+  const tok={get:()=>{try{return localStorage.getItem(TOKEN)||''}catch(e){return ''}},
+             set:v=>{try{v?localStorage.setItem(TOKEN,v):localStorage.removeItem(TOKEN)}catch(e){}}};
+  try{localStorage.removeItem(FLAG)}catch(e){}   // clear the old always-on flag from earlier versions
 
-  function db(){return new Promise((res,rej)=>{
-    const r=indexedDB.open('ag_owner',1);
-    r.onupgradeneeded=()=>r.result.createObjectStore('files');
-    r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
-  async function tx(mode,fn){const d=await db();return new Promise((res,rej)=>{
-    const t=d.transaction('files',mode),rq=fn(t.objectStore('files'));
-    t.oncomplete=()=>res(rq&&rq.result);t.onerror=()=>rej(t.error);});}
-  const getResume=()=>tx('readonly',s=>s.get('resume'));
-
-  async function refresh(){
-    let rec=null;try{rec=await getResume()}catch(e){}
-    status.textContent=rec?rec.name+' · saved '+new Date(rec.saved).toLocaleDateString():'No resume saved in this browser.';
-    [bView,bDl,bRm].forEach(b=>b.disabled=!rec);
-    return rec;
-  }
+  function say(msg,kind){statusEl.textContent=msg;statusEl.className=kind||'';}
+  function render(){const has=!!tok.get();connect.hidden=has;publish.hidden=!has;}
   function show(on){btn.hidden=!on;if(!on)panel.hidden=true;}
-  let unlock=function(){flag.set(true);show(true);panel.hidden=false;refresh();};
-
-  btn.addEventListener('click',()=>{panel.hidden=!panel.hidden;if(!panel.hidden)refresh();});
-  document.getElementById('o-lock').addEventListener('click',()=>{flag.set(false);show(false);});
-  document.getElementById('o-upload').addEventListener('click',()=>file.click());
-  file.addEventListener('change',async()=>{
-    const f=file.files[0];if(!f)return;
-    try{await tx('readwrite',s=>s.put({blob:f,name:f.name,type:f.type,saved:Date.now()},'resume'));}
-    catch(e){status.textContent='Could not save (private window?).';return;}
-    file.value='';refresh();
-  });
-  bView.addEventListener('click',async()=>{const r=await getResume();if(r)window.open(URL.createObjectURL(r.blob),'_blank');});
-  bDl.addEventListener('click',async()=>{const r=await getResume();if(!r)return;
-    const a=document.createElement('a');a.href=URL.createObjectURL(r.blob);a.download=r.name;a.click();});
-  bRm.addEventListener('click',async()=>{if(confirm('Remove the saved resume from this browser?')){await tx('readwrite',s=>s.delete('resume'));refresh();}});
-
-  // Three ways in (all hidden from visitors):
-  //  1) open the site with #owner on the end of the address (bookmark it)
-  //  2) press Ctrl+Alt+O  3) click the footer "AG.AI" 5 times quickly
   function toast(msg){
     const t=document.createElement('div');t.textContent=msg;
     t.style.cssText="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:300;background:var(--surface);border:1px solid var(--cyan);color:var(--text);padding:10px 18px;border-radius:8px;font-size:13px;font-family:'JetBrains Mono',monospace";
-    document.body.appendChild(t);setTimeout(()=>t.remove(),2600);
+    document.body.appendChild(t);setTimeout(()=>t.remove(),2800);
   }
-  const _unlock=unlock;
-  unlock=function(){_unlock();toast('Owner mode on - use the "My Resume" button in the top bar');};
+  function unlock(){sess.set(true);show(true);panel.hidden=false;render();say('');toast('Owner mode on - only you can see this');}
+
+  function gh(method,url,body){
+    return fetch(url,{method,cache:'no-store',headers:Object.assign({
+      'Authorization':'Bearer '+tok.get(),'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'},
+      body?{'Content-Type':'application/json'}:{}),body:body?JSON.stringify(body):undefined});
+  }
+  function toBase64(buf){
+    const b=new Uint8Array(buf);let s='';
+    for(let i=0;i<b.length;i+=0x8000)s+=String.fromCharCode.apply(null,b.subarray(i,i+0x8000));
+    return btoa(s);
+  }
+
+  $('o-save').addEventListener('click',async()=>{
+    const v=tokenIn.value.trim();if(!v){say('Paste your token first.','err');return;}
+    say('Checking token...');
+    try{
+      const r=await fetch(API,{headers:{'Authorization':'Bearer '+v,'Accept':'application/vnd.github+json'},cache:'no-store'});
+      if(!r.ok){say(r.status===401?'GitHub rejected this token.':'This token cannot access the '+REPO+' repository.','err');return;}
+      tok.set(v);tokenIn.value='';render();say('Connected.','ok');
+    }catch(e){say('Could not reach GitHub. Check your connection.','err');}
+  });
+  $('o-forget').addEventListener('click',()=>{tok.set('');render();say('Disconnected. The token was removed from this browser.');});
+  $('o-upload').addEventListener('click',()=>file.click());
+
+  file.addEventListener('change',async()=>{
+    const f=file.files[0];file.value='';if(!f)return;
+    if(!/\.pdf$/i.test(f.name)&&f.type!=='application/pdf'){say('Please choose a PDF file.','err');return;}
+    if(f.size>MAX){say('That file is over 5 MB. Please use a smaller PDF.','err');return;}
+    $('o-upload').disabled=true;say('Publishing '+f.name+'...');
+    try{
+      const content=toBase64(await f.arrayBuffer());
+      let sha;const cur=await gh('GET',API+'/contents/'+PATH+'?ref='+BRANCH);
+      if(cur.ok)sha=(await cur.json()).sha;else if(cur.status!==404){throw {status:cur.status};}
+      const put=await gh('PUT',API+'/contents/'+PATH,{message:'Update resume ('+new Date().toISOString().slice(0,10)+')',content,branch:BRANCH,sha});
+      if(!put.ok)throw {status:put.status};
+      say('Published. The site updates in 1-2 minutes. Hard-refresh (Ctrl+Shift+R) to see it.','ok');
+      $('o-live').href='./resume.pdf?v='+Date.now();
+    }catch(e){
+      const st=e&&e.status;
+      say(st===401?'Token rejected. Disconnect and connect again.'
+        :(st===403||st===404)?'The token does not have write access to this repository.'
+        :(st===409||st===422)?'The file changed while uploading. Try again.'
+        :'Could not publish. Check your connection and try again.','err');
+    }finally{$('o-upload').disabled=false;}
+  });
+
+  btn.addEventListener('click',()=>{panel.hidden=!panel.hidden;if(!panel.hidden)render();});
+  $('o-lock').addEventListener('click',()=>{sess.set(false);show(false);});
+
+  // three hidden ways in
   function viaUrl(){
     if(/(^|[#?&])owner(=|&|$)/.test(location.hash+location.search)){
-      unlock();
-      try{history.replaceState(null,'',location.pathname)}catch(e){}
+      unlock();try{history.replaceState(null,'',location.pathname)}catch(e){}
     }
   }
   document.addEventListener('keydown',e=>{
     if(e.ctrlKey&&e.altKey&&(e.code==='KeyO'||String(e.key).toLowerCase()==='o')){e.preventDefault();unlock();}
   });
   let clicks=0,timer;
-  document.getElementById('owner-unlock').addEventListener('click',()=>{
+  $('owner-unlock').addEventListener('click',()=>{
     clearTimeout(timer);timer=setTimeout(()=>clicks=0,1500);if(++clicks>=5){clicks=0;unlock();}});
   addEventListener('hashchange',viaUrl);
   viaUrl();
-
-  if(flag.get())show(true);
+  if(sess.get())show(true);
 })();
 </script>
-
 
 <script>
 /* ---------- DATA: single source of truth for the workflow explorer ---------- */
@@ -800,8 +831,23 @@ const WF = [
     if(!del&&c===word.length){del=true;return setTimeout(tick,1600);}
     if(del&&c===0){del=false;w=(w+1)%words.length;}
     c+=del?-1:1;setTimeout(tick,del?35:70);})();}
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}}),{threshold:.12});
-  document.querySelectorAll('.fade-in').forEach(n=>io.observe(n));
+  // Reveal on scroll. Two independent mechanisms so content can never stay hidden:
+  // an observer, and a plain scroll/resize/load check that does not depend on it.
+  const items=[...document.querySelectorAll('.fade-in')];
+  const show=n=>n.classList.add('visible');
+  function revealInView(){
+    const h=innerHeight||document.documentElement.clientHeight;
+    for(const n of items){if(n.classList.contains('visible'))continue;
+      const r=n.getBoundingClientRect();if(r.top<h*.95&&r.bottom>0)show(n);}
+  }
+  if('IntersectionObserver' in window){
+    try{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){show(e.target);io.unobserve(e.target);}}),{threshold:.05});
+        items.forEach(n=>io.observe(n));}catch(e){}
+  }
+  addEventListener('scroll',revealInView,{passive:true});addEventListener('resize',revealInView);
+  addEventListener('hashchange',()=>setTimeout(revealInView,60));addEventListener('load',revealInView);
+  [0,150,600,1500].forEach(t=>setTimeout(revealInView,t));
+
   const canvas=document.getElementById('hero-canvas');if(reduce)return;
   const ctx=canvas.getContext('2d');let W,H,pts=[];
   function size(){W=canvas.width=canvas.offsetWidth;H=canvas.height=canvas.offsetHeight;pts=Array.from({length:Math.min(70,Math.floor(W/20))},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3}));}
