@@ -207,6 +207,106 @@ footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-fa
 @keyframes blink{50%{opacity:0}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}.js .fade-in{opacity:1;transform:none}}
 
+/* LEAD FLOW ANIMATION */
+.lf{margin-bottom:36px}
+.lf-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.lf-btns{display:flex;gap:8px;flex-wrap:wrap}
+.lf-btns button,.lf-nav button{background:var(--surface);border:1px solid var(--border-accent);color:var(--text);border-radius:8px;padding:8px 14px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;cursor:pointer;transition:all .2s;box-shadow:2px 2px 0 #070809}
+.lf-btns button:hover,.lf-nav button:hover{border-color:var(--cyan);color:var(--cyan);transform:translate(-1px,-1px)}
+.lf-btns button:active,.lf-nav button:active{transform:translate(1px,1px);box-shadow:none}
+.lf-clock{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--cyan);background:rgba(76,215,246,.08);border:1px solid rgba(76,215,246,.2);border-radius:100px;padding:6px 14px}
+.lf-main{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}
+.lf-metrics{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.lf-m{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px 10px;box-shadow:2px 2px 0 #070809}
+.lf-m small{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lf-m b{display:block;font-family:var(--mono);font-size:20px;font-weight:600;color:var(--text);line-height:1.2}
+.lf-m.hot{border-color:rgba(76,215,246,.5)}.lf-m.hot b{color:var(--cyan)}
+.lf-m.bad.hot{border-color:rgba(248,113,113,.5)}.lf-m.bad.hot b{color:var(--red)}
+.lf-flow{position:relative;border:1px solid var(--border);border-radius:14px;padding:44px 22px 26px;
+  background:radial-gradient(ellipse at 50% 0%,rgba(77,142,255,.10),transparent 60%),
+  linear-gradient(30deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/40px 69px,
+  linear-gradient(150deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/40px 69px,#111}
+.lf-svg{position:absolute;left:0;top:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}
+.lf-svg path{fill:none;stroke:#3a3f55;stroke-width:2;stroke-dasharray:5 6;stroke-linejoin:round;animation:lf-march 1.4s linear infinite}
+.lf-svg path.done{stroke:var(--blue-bright);stroke-dasharray:none;animation:none;filter:drop-shadow(0 0 5px var(--glow-blue))}
+@keyframes lf-march{to{stroke-dashoffset:-22}}
+.lf-row{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px 20px}
+.lf-row+.lf-row{margin-top:58px}
+.lf-lane{grid-column:1/-1;justify-self:end;margin-bottom:22px;position:relative;z-index:2;background:#111;padding:0 0 0 8px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--text-muted)}
+.lf-lane b{color:var(--cyan);font-weight:500}
+.lf-node{position:relative;z-index:2;text-align:left;background:linear-gradient(180deg,#232427,#1a1b1e);border:1px solid #34363c;border-radius:10px;padding:10px 30px 10px 11px;min-height:76px;color:inherit;font-family:inherit;cursor:pointer;
+  box-shadow:1px 1px 0 #06070a,2px 2px 0 #06070a,3px 3px 0 #06070a,4px 4px 0 #06070a,5px 9px 14px rgba(0,0,0,.5);
+  transition:transform .3s cubic-bezier(.3,1.5,.5,1),border-color .3s,box-shadow .3s,background .3s}
+.lf-node:hover{border-color:var(--border-accent)}
+.lf-tag{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--blue)}
+.lf-title{display:block;font-size:12.5px;font-weight:600;line-height:1.3;margin:3px 0 2px;overflow-wrap:anywhere}
+.lf-sub{display:block;font-size:11px;color:var(--text-muted);line-height:1.35}
+.lf-ico{position:absolute;top:9px;right:9px;width:18px;height:18px;color:var(--blue);opacity:.85;transition:color .3s}
+.lf-node.db{border-style:dashed}.lf-node.db .lf-tag,.lf-node.db .lf-ico{color:var(--orange)}
+.lf-node.done{border-color:rgba(77,142,255,.5)}
+.lf-node.done .lf-tag::after{content:' ✓';color:var(--green)}
+.lf-node.active{transform:translate(-3px,-5px);border-color:var(--cyan);background:linear-gradient(180deg,#1b2d36,#14222a);
+  box-shadow:1px 1px 0 #0b4452,2px 2px 0 #0b4452,3px 3px 0 #0b4452,4px 4px 0 #0b4452,5px 5px 0 #0b4452,6px 6px 0 #0b4452,0 0 30px var(--glow-cyan),8px 14px 18px rgba(0,0,0,.5)}
+.lf-node.active .lf-ico{color:var(--cyan)}
+.lf-node.wave{animation:lf-wave 1s ease-in-out both}
+@keyframes lf-wave{0%,100%{transform:none}35%{transform:translate(-3px,-6px);border-color:var(--green);background:linear-gradient(180deg,#16301f,#112016);box-shadow:1px 1px 0 #0d4a26,2px 2px 0 #0d4a26,3px 3px 0 #0d4a26,4px 4px 0 #0d4a26,5px 5px 0 #0d4a26,0 0 28px rgba(34,197,94,.3)}}
+.lf-badge{position:absolute;top:-10px;right:8px;font-family:var(--mono);font-size:9px;color:var(--orange);background:#1f1710;border:1px solid rgba(255,183,134,.4);border-radius:100px;padding:1px 8px;opacity:0;transition:opacity .3s}
+.lf-node.active .lf-badge{opacity:1}
+.lf-packet{position:absolute;left:0;top:0;width:0;height:0;z-index:5;pointer-events:none;opacity:0;transition:opacity .3s}
+.lf-packet.on{opacity:1}
+.lf-packet::before{content:'';position:absolute;left:-7px;top:-7px;width:14px;height:14px;border-radius:50%;background:var(--cyan);box-shadow:0 0 0 4px rgba(76,215,246,.22),0 0 20px var(--cyan)}
+.lf-packet.tr{z-index:4}
+.lf-packet.tr::before{box-shadow:none;filter:blur(1px)}
+.lf-packet::before{transition:transform .25s}
+.lf-packet.t1::before{opacity:.5;transform:scale(.85)}.lf-packet.t2::before{opacity:.3;transform:scale(.65)}.lf-packet.t3::before{opacity:.15;transform:scale(.45)}
+.lf-packet.rest::before{transform:scale(0)}
+.lf-chip{position:absolute;left:0;bottom:44px;transform:translateX(-50%);white-space:nowrap;font:600 10px var(--mono);color:#04222a;background:var(--cyan);padding:3px 10px;border-radius:6px;box-shadow:3px 3px 0 #0b4452}
+.lf-chip::after{content:'';position:absolute;left:50%;bottom:-5px;margin-left:-5px;border:5px solid transparent;border-bottom:0;border-top-color:var(--cyan)}
+.lf-burst{position:absolute;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;border:2px solid var(--cyan);pointer-events:none;z-index:4;animation:lf-burst .85s ease-out forwards}
+.lf-burst.o{border-color:var(--orange)}
+@keyframes lf-burst{0%{opacity:1;transform:scale(.5)}100%{opacity:0;transform:scale(3.4)}}
+.lf-ghost{position:absolute;z-index:5;pointer-events:none;font-family:var(--mono);font-size:10px;color:var(--red);background:#241414;border:1px solid rgba(248,113,113,.5);border-radius:100px;padding:2px 10px;white-space:nowrap;transform:translate(-50%,-50%);animation:lf-drop 1.9s ease-in forwards}
+@keyframes lf-drop{0%{opacity:1;margin-top:0;transform:translate(-50%,-50%) rotate(0)}100%{opacity:0;margin-top:52px;transform:translate(-50%,-50%) rotate(8deg)}}
+.lf-stepper{display:grid;grid-template-columns:repeat(17,minmax(0,1fr));row-gap:4px;margin-top:14px;background:#111;border:1px solid var(--border);border-radius:12px;padding:14px 12px 10px}
+.lf-stp{position:relative;display:flex;justify-content:center;align-items:center;height:26px;background:none;border:0;cursor:pointer;padding:0}
+.lf-stp::before,.lf-stp::after{content:'';position:absolute;top:50%;height:2px;background:#2a2c34;transform:translateY(-50%)}
+.lf-stp::before{left:0;right:50%}.lf-stp::after{left:50%;right:0}
+.lf-stp.first::before,.lf-stp.last::after{display:none}
+.lf-stp.reached::before,.lf-stp.done::after{background:var(--blue-bright)}
+.lf-stp i{position:relative;z-index:1;width:22px;height:22px;border-radius:50%;background:#1a1b1e;border:1.5px solid #3a3d4a;font:500 9px var(--mono);font-style:normal;display:grid;place-items:center;color:var(--text-muted);transition:all .25s}
+.lf-stp:hover i{border-color:var(--cyan);color:var(--cyan)}
+.lf-stp.done i{background:var(--blue-bright);border-color:var(--blue-bright);color:#fff}
+.lf-stp.active i{background:var(--cyan);border-color:var(--cyan);color:#04222a;box-shadow:0 0 0 4px rgba(76,215,246,.22);transform:scale(1.12)}
+.lf-stp-lab{text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:.08em;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lf-side{position:sticky;top:84px;display:grid;gap:14px}
+.lf-nar{background:var(--surface);border:1px solid var(--border-accent);border-radius:12px;padding:16px;box-shadow:3px 3px 0 #070809}
+.lf-nh{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--text-muted)}
+.lf-pill{font-size:9px;letter-spacing:.1em;padding:2px 9px;border-radius:100px;border:1px solid;color:var(--blue);border-color:rgba(173,198,255,.4);background:rgba(173,198,255,.08)}
+.lf-pill.TRIGGER{color:var(--cyan);border-color:rgba(76,215,246,.5);background:rgba(76,215,246,.08)}
+.lf-pill.DATABASE{color:var(--orange);border-color:rgba(255,183,134,.5);background:rgba(255,183,134,.08)}
+.lf-pill.DECISION{color:var(--green);border-color:rgba(34,197,94,.5);background:rgba(34,197,94,.08)}
+.lf-nbody h4{font-size:17px;line-height:1.3;margin-bottom:6px}
+.lf-nbody p{font-size:13px;color:var(--text-muted);min-height:78px}
+.lf-key{margin-top:10px;background:rgba(173,198,255,.07);border:1px solid rgba(173,198,255,.22);border-radius:8px;padding:8px 10px;font-size:12px;color:var(--text)}
+.lf-key small{display:block;font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--blue);margin-bottom:2px}
+.lf-nav{display:flex;gap:8px;margin-top:14px}
+.lf-nav button{flex:1}
+.lf-nav #lf-next{background:var(--blue-bright);border-color:var(--blue-bright);color:#fff}
+.lf-hint{margin-top:8px;font-family:var(--mono);font-size:9px;color:#5c606c;letter-spacing:.06em;text-align:center}
+.lf-rec{background:#0e0e0e;border:1px solid var(--border-accent);border-radius:12px;padding:14px 16px}
+.lf-rec h5{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--cyan);font-weight:500;margin-bottom:2px}
+.lf-rec p{font-size:11px;color:var(--text-muted);margin-bottom:8px}
+.lf-rec dl{font-family:var(--mono);font-size:11px}
+.lf-rec dl>div{display:flex;justify-content:space-between;gap:10px;padding:3px 6px;border-radius:4px;transition:background .6s}
+.lf-rec dt{color:var(--text-muted)}
+.lf-rec dd{color:var(--text);text-align:right;word-break:break-all}
+.lf-rec dd.empty{color:#4a4d57}
+.lf-rec dl>div.new{background:rgba(76,215,246,.15)}
+@media (max-width:1100px){.lf-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:980px){.lf-main{grid-template-columns:1fr}.lf-side{position:static}}
+@media (max-width:760px){.lf-row{grid-template-columns:1fr}.lf-row+.lf-row{margin-top:40px}.lf-lane{justify-self:start;padding:0 8px 0 0}.lf-flow{padding:42px 14px 20px}.lf-node{min-height:0}
+  .lf-stp i{width:16px;height:16px;font-size:8px}.lf-stp-lab{font-size:7px;letter-spacing:0}.lf-stepper{padding:12px 6px 8px}}
+
 /* RESPONSIVE */
 @media (max-width:980px){
   .explorer,.demo,.grid-2{grid-template-columns:1fr}
@@ -342,6 +442,46 @@ footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-fa
   <div class="section-label">Deep dive · Discover stage</div>
   <h2 class="section-title fade-in">Lead generation <span>pipeline</span></h2>
   <p class="section-lead fade-in">Four workflows hand work to each other through PostgreSQL rather than calling each other directly. Each one runs on its own schedule, so a failure in one never blocks another.</p>
+
+  <div class="lf fade-in" id="lf" aria-label="Animated walkthrough of one lead moving through the four lead generation workflows">
+    <div class="lf-bar">
+      <div class="lf-btns">
+        <button type="button" id="lf-play" aria-label="Play or pause the animation">❚❚ PAUSE</button>
+        <button type="button" id="lf-replay" aria-label="Replay from the start">↺ REPLAY</button>
+        <button type="button" id="lf-speed" aria-label="Change animation speed">SPEED 1×</button>
+      </div>
+      <div class="lf-clock" id="lf-clock">DAY 1 · 14:05</div>
+    </div>
+    <div class="lf-main">
+      <div class="lf-left">
+        <div class="lf-metrics" id="lf-metrics" aria-label="Sample batch counters, illustrative numbers"></div>
+        <div class="lf-flow" id="lf-flow">
+          <svg class="lf-svg" id="lf-svg" aria-hidden="true"></svg>
+          <div id="lf-rows"></div>
+          <div class="lf-packet" id="lf-packet" aria-hidden="true"><span class="lf-chip" id="lf-chip"></span></div>
+        </div>
+        <div class="lf-stepper" id="lf-stepper" role="group" aria-label="Jump to a step"></div>
+      </div>
+      <aside class="lf-side">
+        <div class="lf-nar">
+          <div class="lf-nh"><span id="lf-nstep">STEP 1 / 17</span><span class="lf-pill" id="lf-npill">TRIGGER</span></div>
+          <div class="lf-nbody" id="lf-nbody">
+            <h4 id="lf-ntitle"></h4>
+            <p id="lf-ntext"></p>
+            <div class="lf-key" id="lf-nkey" hidden><small>KEY IDEA</small><span id="lf-nkeytxt"></span></div>
+          </div>
+          <div class="lf-nav"><button type="button" id="lf-back">← BACK</button><button type="button" id="lf-next">NEXT →</button></div>
+          <div class="lf-hint">← → step · SPACE pause · R replay</div>
+        </div>
+        <div class="lf-rec" aria-label="Sample lead record">
+          <h5>LEAD RECORD</h5>
+          <p>One fictional shop, filling in as it moves. Batch counters are illustrative.</p>
+          <dl id="lf-rec"></dl>
+        </div>
+      </aside>
+    </div>
+    <p class="sr-only">A sample lead enters through a form with a city and category. The scanner searches Google Places, removes chains and saves the lead as raw. Enrichment fetches the website, extracts an email, scores the lead and passes it through a quality gate, then saves it as verified. The sales pipeline emails the team and marks it contacted. Outreach checks business hours and sends a German partnership email, with at most three attempts.</p>
+  </div>
 
   <div class="pipe fade-in">
     <div class="pipe-step">
@@ -893,6 +1033,227 @@ const WF = [
     if(!j||!j.version)return;const v=encodeURIComponent(j.version);
     document.querySelectorAll('a[href^="./resume.pdf"]').forEach(a=>a.setAttribute('href','./resume.pdf?v='+v));
   }).catch(()=>{});
+})();
+</script>
+<script>
+// Animated walkthrough of one fictional lead through the four lead-gen workflows.
+(function(){
+  const $=id=>document.getElementById(id);
+  const root=$('lf');if(!root)return;
+  const flow=$('lf-flow'),svg=$('lf-svg'),rowsEl=$('lf-rows'),packet=$('lf-packet'),chip=$('lf-chip'),clockEl=$('lf-clock'),
+        recEl=$('lf-rec'),metEl=$('lf-metrics'),stpEl=$('lf-stepper'),playBtn=$('lf-play'),replayBtn=$('lf-replay'),speedBtn=$('lf-speed'),
+        backBtn=$('lf-back'),nextBtn=$('lf-next'),nStep=$('lf-nstep'),nPill=$('lf-npill'),nTitle=$('lf-ntitle'),nText=$('lf-ntext'),
+        nKey=$('lf-nkey'),nKeyTxt=$('lf-nkeytxt'),nBody=$('lf-nbody');
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const NS='http://www.w3.org/2000/svg';
+
+  const D1='DAY 1 · 14:05',D2a='DAY 2 · 06:00',D2b='DAY 2 · 18:00',D3='DAY 3 · 09:00';
+  const lanes=[
+    {n:1,name:'LEAD GENERATION SCANNER',when:'ON DEMAND · FORM',short:'1 · SCANNER'},
+    {n:2,name:'LEAD ENRICHMENT',when:'DAILY · 06:00',short:'2 · ENRICHMENT'},
+    {n:3,name:'SALES PIPELINE MANAGER',when:'MON–FRI · 18:00',short:'3 · SALES'},
+    {n:4,name:'LEAD OUTREACH',when:'MON–FRI · 09:00',short:'4 · OUTREACH'}
+  ];
+  // l lane · tag · t title · s sub · chip payload carried by the dot · cap narration · k key idea · d record fields · m batch counters
+  const steps=[
+    {l:0,tag:'FORM',t:'Form submitted',s:'City + category',time:D1,chip:'Berlin · Handyreparatur',cap:'Someone fills in the form with a city and a repair category. This is the only manual trigger in the whole pipeline.',d:{city:'Berlin',category:'Handyreparatur'}},
+    {l:0,tag:'CODE',t:'Build queries',s:'German search strings',time:D1,chip:'"Handyreparatur Berlin"',cap:'The scanner turns the form input into German Google search queries.',d:{query:'Handyreparatur Berlin'}},
+    {l:0,tag:'API',t:'Google Places',s:'3 retries, 3 s apart',time:D1,badge:'↻ retry 1/3',chip:'place_id ChIJ-demo-4821',cap:'Calls the Google Places API. One call times out, the retry setting tries again and it succeeds.',k:'A flaky API should not fail the run: retry 3 times, 3 seconds apart, before giving up.',d:{place_id:'ChIJ-demo-4821',name:'Muster Handyreparatur',website:'muster-handy.example'},m:{found:20}},
+    {l:0,tag:'FILTER',t:'Drop chains',s:'25 chains + duplicates',time:D1,chip:'independent shop ✓',cap:'Chains (MediaMarkt, Saturn, telecom shops…) are removed. This is an independent shop, so it continues.',d:{chain:'no'},m:{chains:6}},
+    {l:0,tag:'POSTGRES',t:'google_business_leads',s:'upsert · raw',db:1,time:D1,chip:'status: raw',cap:'Upserted on the Google place ID with status raw.',k:'Upsert on the place ID: scanning the same shop twice updates the row instead of duplicating it.',d:{stored_in:'google_business_leads',pipeline_status:'raw'},m:{raw:14}},
+    {l:1,tag:'HTTP',t:'Fetch website',s:'2 retries',time:D2a,chip:'GET muster-handy.example',cap:'Next morning at 06:00 Enrichment takes up to 200 raw leads and fetches each shop’s website.',d:{}},
+    {l:1,tag:'PARSE',t:'Extract email',s:'from page content',time:D2a,chip:'info@muster-handy.example',cap:'Looks through the page for a contact email address.',d:{email:'info@muster-handy.example'}},
+    {l:1,tag:'SCORE',t:'Score lead',s:'data completeness',time:D2a,chip:'score 4',cap:'Scores the lead on how complete and usable its data is.',d:{score:4}},
+    {l:1,tag:'GATE',t:'Quality gate',s:'score ≥ 2 passes',time:D2a,fx:'reject',chip:'4 ≥ 2 → pass',cap:'Score 4 passes. Another lead in the batch scored 1 and is rejected here, so it never reaches sales.',k:'The gate keeps weak leads out of the sales report and out of outreach.',d:{pipeline_status:'enriched'},m:{pass:11,rej:3}},
+    {l:1,tag:'POSTGRES',t:'verified_leads',s:'upsert · enriched',db:1,time:D2a,chip:'status: enriched',cap:'Only leads that passed the gate are upserted into verified_leads.',d:{stored_in:'verified_leads'}},
+    {l:2,tag:'POSTGRES',t:'Read new leads',s:'status = enriched',db:1,time:D2b,chip:'11 qualified leads',cap:'At 18:00 the Sales Pipeline Manager reads the new qualified leads from the database.',k:'Workflows never call each other. The database is the hand-off, so one failure cannot block another.',d:{}},
+    {l:2,tag:'EMAIL',t:'Team summary',s:'HTML report',time:D2b,chip:'HTML summary sent',cap:'Emails the team an HTML summary of the new leads.',d:{}},
+    {l:2,tag:'POSTGRES',t:'Mark contacted',s:'one batch update',db:1,time:D2b,chip:'status: contacted',cap:'Moves the leads to contacted in a single batch update.',d:{pipeline_status:'contacted'}},
+    {l:3,tag:'CHECK',t:'Business hours',s:'Europe/Berlin',time:D3,chip:'09:00 Mon–Fri ✓',cap:'At 09:00 Outreach first checks it is business hours in Berlin. This runs before every send.',d:{}},
+    {l:3,tag:'SELECT',t:'Pick leads',s:'10 new + 10 follow-ups',time:D3,chip:'10 new + 10 follow-ups',cap:'Selects up to 10 first contacts and 10 follow-ups.',k:'A 20-a-day cap and business-hours-only sending protect the sender reputation.',d:{}},
+    {l:3,tag:'EMAIL',t:'Send outreach',s:'German partner email',time:D3,chip:'partner email (DE)',cap:'Sends the German partnership email.',d:{attempts:'1 / 3'},m:{sent:10}},
+    {l:3,tag:'POSTGRES',t:'Log attempt',s:'contact history',db:1,time:D3,chip:'attempt 1 / 3',cap:'Logs the attempt. With no reply it follows up, and after three attempts the lead stops receiving emails.',k:'Contact history in the database prevents duplicate emails, even if a run is repeated.',d:{}}
+  ];
+  const N=steps.length;
+  const fields=['city','category','query','place_id','name','website','chain','email','score','stored_in','pipeline_status','attempts'];
+  const metrics=[['found','PLACES FOUND'],['chains','CHAINS REMOVED'],['raw','SAVED AS RAW'],['pass','PASSED GATE'],['rej','REJECTED'],['sent','EMAILS SENT']];
+  const ICON={FORM:'M6 3h9l4 4v14H6z M14 3v5h5 M9 13h6 M9 17h6',CODE:'M8 8l-5 4 5 4 M16 8l5 4-5 4 M14 5l-4 14',
+    API:'M3 12h18 M12 3a14 14 0 0 1 0 18 M12 3a14 14 0 0 0 0 18 M12 3a9 9 0 1 0 .01 0',FILTER:'M3 4h18l-7 8v6l-4 2v-8z',
+    POSTGRES:'M4 6c0 1.7 3.6 3 8 3s8-1.3 8-3-3.6-3-8-3-8 1.3-8 3z M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6 M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3',
+    HTTP:'M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1 M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1',
+    PARSE:'M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8',
+    SCORE:'M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z',
+    GATE:'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z M8.5 12l2.5 2.5 4.5-5',
+    EMAIL:'M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M3 7l9 6 9-6',
+    CHECK:'M12 3a9 9 0 1 0 .01 0 M12 7v5l3 2',SELECT:'M8 6h13 M8 12h13 M8 18h13 M3 6h.01 M3 12h.01 M3 18h.01'};
+  const kindOf=s=>s.db?'DATABASE':s.tag==='FORM'?'TRIGGER':(s.tag==='GATE'||s.tag==='FILTER'||s.tag==='CHECK')?'DECISION':'ACTION';
+  function icon(tag){const e=document.createElementNS(NS,'svg');e.setAttribute('viewBox','0 0 24 24');e.setAttribute('class','lf-ico');e.setAttribute('aria-hidden','true');
+    e.setAttribute('fill','none');e.setAttribute('stroke','currentColor');e.setAttribute('stroke-width','1.8');e.setAttribute('stroke-linecap','round');e.setAttribute('stroke-linejoin','round');
+    const p=document.createElementNS(NS,'path');p.setAttribute('d',ICON[tag]||ICON.CODE);e.append(p);return e}
+
+  // trailing dots for the comet effect
+  const trail=[1,2,3].map(k=>{const t=document.createElement('div');t.className='lf-packet tr t'+k;t.setAttribute('aria-hidden','true');flow.insertBefore(t,packet);return t});
+  const pk=[packet,...trail];
+
+  // nodes
+  const nodes=[];let userPaused=false;
+  lanes.forEach((ln,li)=>{
+    const row=document.createElement('div');row.className='lf-row';
+    const lab=document.createElement('div');lab.className='lf-lane';
+    const b=document.createElement('b');b.textContent='WORKFLOW '+ln.n;lab.append(b,' · '+ln.name+' · '+ln.when);row.append(lab);
+    steps.forEach((st,i)=>{
+      if(st.l!==li)return;
+      const n=document.createElement('button');n.type='button';n.className='lf-node'+(st.db?' db':'');
+      const tg=document.createElement('span');tg.className='lf-tag';tg.textContent=st.tag;
+      const ti=document.createElement('span');ti.className='lf-title';ti.textContent=st.t;
+      const su=document.createElement('span');su.className='lf-sub';su.textContent=st.s;
+      n.append(icon(st.tag),tg,ti,su);
+      if(st.badge){const bg=document.createElement('span');bg.className='lf-badge';bg.textContent=st.badge;n.append(bg)}
+      n.setAttribute('aria-label','Step '+(i+1)+': '+st.t+'. '+st.cap);
+      n.addEventListener('click',()=>{userPaused=true;jump(i)});
+      row.append(n);nodes[i]=n;
+    });
+    rowsEl.append(row);
+  });
+
+  // stepper (numbered timeline grouped by workflow)
+  const stps=[];
+  steps.forEach((st,i)=>{const b=document.createElement('button');b.type='button';b.className='lf-stp'+(i===0?' first':'')+(i===N-1?' last':'');
+    const n=document.createElement('i');n.textContent=i+1;b.append(n);b.title=(i+1)+'. '+st.t;b.setAttribute('aria-label','Go to step '+(i+1)+': '+st.t);
+    b.addEventListener('click',()=>{userPaused=true;jump(i)});stpEl.append(b);stps.push(b)});
+  lanes.forEach((ln,li)=>{const c=steps.filter(s=>s.l===li).length,d=document.createElement('div');d.className='lf-stp-lab';d.textContent=ln.short;d.style.gridColumn='span '+c;stpEl.append(d)});
+
+  // metrics + record
+  const metNum={};
+  metrics.forEach(([k,l])=>{const w=document.createElement('div');w.className='lf-m'+(k==='rej'?' bad':'');const s=document.createElement('small');s.textContent=l;const n=document.createElement('b');n.textContent='0';n.dataset.v=0;w.append(s,n);metEl.append(w);metNum[k]=n});
+  const recDd={};
+  fields.forEach(f=>{const w=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=f;dd.textContent='—';dd.className='empty';w.append(dt,dd);recEl.append(w);recDd[f]=dd});
+
+  function setNum(el,to,tween){
+    const from=+el.dataset.v||0,tk=(+el.dataset.tk||0)+1;el.dataset.tk=tk;el.dataset.v=to;
+    const box=el.parentNode;box.classList.toggle('hot',to>0);
+    if(!tween||reduce||from===to){el.textContent=to;return}
+    box.animate([{transform:'scale(1)'},{transform:'scale(1.07)'},{transform:'scale(1)'}],{duration:500});
+    const t0=performance.now();
+    (function f(t){if(+el.dataset.tk!==tk)return;const p=Math.min(1,(t-t0)/700);el.textContent=Math.round(from+(to-from)*p);if(p<1)requestAnimationFrame(f)})(t0);
+  }
+  function renderMetrics(upTo,tween){const m={};for(let i=0;i<=upTo;i++)Object.assign(m,steps[i].m||{});
+    metrics.forEach(([k])=>setNum(metNum[k],m[k]||0,tween))}
+  function renderRec(upTo,flash){
+    const rec={};for(let i=0;i<=upTo;i++)Object.assign(rec,steps[i].d);
+    fields.forEach(f=>{const dd=recDd[f],has=f in rec,txt=has?String(rec[f]):'—',changed=dd.textContent!==txt;
+      dd.textContent=txt;dd.className=has?'':'empty';
+      if(f==='pipeline_status')dd.style.color=has?(rec[f]==='raw'?'var(--text-muted)':rec[f]==='enriched'?'var(--blue)':'var(--green)'):'';
+      if(flash&&changed&&has){const w=dd.parentNode;w.classList.add('new');setTimeout(()=>w.classList.remove('new'),1400)}});
+  }
+  function renderNar(i,animate){
+    if(i<0){nStep.textContent='READY';nPill.textContent='START';nPill.className='lf-pill';nTitle.textContent='A lead’s journey';nText.textContent='Press play, step with the arrow keys, or click any node or number to jump.';nKey.hidden=true;return}
+    const st=steps[i],kd=kindOf(st);
+    nStep.textContent='STEP '+(i+1)+' / '+N;nPill.textContent=kd;nPill.className='lf-pill '+kd;
+    nTitle.textContent=st.t;nText.textContent=st.cap;nKey.hidden=!st.k;nKeyTxt.textContent=st.k||'';
+    if(animate&&!reduce)nBody.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:380,easing:'ease-out'});
+  }
+
+  // geometry
+  function ctr(n){const r=n.getBoundingClientRect(),f=flow.getBoundingClientRect();
+    return{x:r.left-f.left+r.width/2,y:r.top-f.top+r.height/2,bottom:r.bottom-f.top}}
+  function route(a,b){const pa=ctr(nodes[a]),pb=ctr(nodes[b]);
+    if(Math.abs(pa.x-pb.x)<6||Math.abs(pa.y-pb.y)<6)return[pa,pb];
+    const my=pa.bottom+18;return[pa,{x:pa.x,y:my},{x:pb.x,y:my},pb]}
+  const tf=(x,y)=>'translate('+x+'px,'+y+'px)';
+  const setPk=(x,y)=>pk.forEach(e=>e.style.transform=tf(x,y));
+  let paths=[];
+  function layout(){
+    svg.replaceChildren();paths=[];
+    for(let i=1;i<N;i++){const p=document.createElementNS(NS,'path');
+      p.setAttribute('d',route(i-1,i).map((q,k)=>(k?'L':'M')+q.x.toFixed(1)+' '+q.y.toFixed(1)).join(' '));
+      if(i<=idx)p.classList.add('done');svg.append(p);paths[i]=p}
+    if(idx>=0){const c=ctr(nodes[idx]);setPk(c.x,c.y)}
+  }
+
+  // controller
+  let idx=-1,playing=false,tok=0,inView=false,speed=1,anims=[],sleepT=null,sleepR=null;
+  function setBtn(){playBtn.textContent=playing?'❚❚ PAUSE':(idx>=N-1?'▶ PLAY AGAIN':'▶ PLAY');backBtn.disabled=idx<=0;nextBtn.disabled=idx>=N-1;backBtn.style.opacity=backBtn.disabled?.4:1;nextBtn.style.opacity=nextBtn.disabled?.4:1}
+  function sleep(ms){return new Promise(r=>{sleepR=r;sleepT=setTimeout(r,ms)})}
+  function wake(){clearTimeout(sleepT);if(sleepR)sleepR()}
+  function rest(on){pk.forEach(e=>e.classList.toggle('rest',on))}
+  function stopAnims(){anims.forEach(a=>a.cancel());anims=[]}
+  function clearWave(){nodes.forEach(n=>{n.classList.remove('wave');n.style.animationDelay=''})}
+  function burst(i){const c=ctr(nodes[i]),e=document.createElement('div');e.className='lf-burst'+(steps[i].db?' o':'');e.style.left=c.x+'px';e.style.top=c.y+'px';flow.append(e);setTimeout(()=>e.remove(),900)}
+  function setChip(i,pop){chip.textContent=steps[i].chip;if(pop&&!reduce)chip.animate([{transform:'translateX(-50%) scale(.7)',opacity:0},{transform:'translateX(-50%) scale(1.08)',opacity:1},{transform:'translateX(-50%) scale(1)'}],{duration:380,easing:'ease-out'})}
+  function show(i,flash){
+    clearWave();rest(true);
+    nodes.forEach((n,k)=>{n.classList.toggle('done',k<i);n.classList.toggle('active',k===i)});
+    paths.forEach((p,k)=>p&&p.classList.toggle('done',k<=i));
+    stps.forEach((b,k)=>{b.classList.toggle('done',k<i);b.classList.toggle('active',k===i);b.classList.toggle('reached',k<=i)});
+    clockEl.textContent=steps[i].time;setChip(i,flash);
+    renderNar(i,flash);renderRec(i,flash);renderMetrics(i,flash);
+    if(flash){burst(i);
+      if(steps[i].fx==='reject'){const c=ctr(nodes[i]),g=document.createElement('div');g.className='lf-ghost';g.textContent='✕ score 1 · rejected';
+        g.style.left=(c.x+30)+'px';g.style.top=(c.y+38)+'px';flow.append(g);setTimeout(()=>g.remove(),2000)}
+      if(i===N-1&&!reduce)nodes.forEach((n,k)=>{n.classList.remove('active');n.style.animationDelay=(k*55)+'ms';n.classList.add('wave')})}
+    setBtn();
+  }
+  async function advance(i,t){
+    const prev=idx;idx=i;
+    if(prev<0||reduce){const c=ctr(nodes[i]);setPk(c.x,c.y);packet.classList.add('on');trail.forEach(x=>x.classList.add('on'));show(i,true);return}
+    rest(false);
+    const pts=route(prev,i);let len=0;const seg=[0];
+    for(let k=1;k<pts.length;k++){len+=Math.hypot(pts[k].x-pts[k-1].x,pts[k].y-pts[k-1].y);seg.push(len)}
+    const dur=Math.min(1200,Math.max(500,len*2.4))/speed;
+    const frames=pts.map((p,k)=>({transform:tf(p.x,p.y),offset:len?seg[k]/len:k/(pts.length-1)}));
+    anims=pk.map((e,k)=>e.animate(frames,{duration:dur,delay:k*70/speed,easing:'ease-in-out',fill:'forwards'}));
+    try{await Promise.all(anims.map(a=>a.finished))}catch(e){return}
+    if(t!==tok)return;
+    const e=pts[pts.length-1];setPk(e.x,e.y);stopAnims();
+    show(i,true);
+  }
+  async function run(){
+    const t=++tok;playing=true;setBtn();
+    while(t===tok&&idx<N-1){
+      await advance(idx+1,t);
+      if(t!==tok)return;
+      if(idx>=N-1)break;
+      await sleep((steps[idx].fx?2800:2300)/speed);
+      if(t!==tok)return;
+    }
+    if(t===tok){playing=false;setBtn()}
+  }
+  function pause(){tok++;playing=false;if(anims.length){stopAnims();if(idx>=0)show(idx,false);layout()}wake();setBtn()}
+  function jump(i){
+    i=Math.max(0,Math.min(N-1,i));
+    tok++;playing=false;wake();stopAnims();
+    idx=i;layout();packet.classList.add('on');trail.forEach(x=>x.classList.add('on'));show(i,false);
+  }
+  function reset(){tok++;playing=false;wake();stopAnims();clearWave();
+    idx=-1;pk.forEach(e=>e.classList.remove('on'));chip.textContent='';
+    nodes.forEach(n=>n.classList.remove('done','active'));paths.forEach(p=>p&&p.classList.remove('done'));
+    stps.forEach(b=>b.classList.remove('done','active','reached'));
+    clockEl.textContent=D1;renderRec(-1,false);renderMetrics(-1,false);renderNar(-1,false);setBtn()}
+
+  playBtn.addEventListener('click',()=>{
+    if(playing){userPaused=true;pause();return}
+    userPaused=false;if(idx>=N-1)reset();run()});
+  replayBtn.addEventListener('click',()=>{userPaused=false;reset();run()});
+  speedBtn.addEventListener('click',()=>{speed=speed===1?2:1;speedBtn.textContent='SPEED '+speed+'×'});
+  backBtn.addEventListener('click',()=>{userPaused=true;jump(idx-1)});
+  nextBtn.addEventListener('click',()=>{userPaused=true;jump(idx+1)});
+  document.addEventListener('keydown',e=>{
+    if(e.ctrlKey||e.metaKey||e.altKey||/^(INPUT|TEXTAREA|SELECT)$/.test((e.target||{}).tagName))return;
+    if(!(root.matches(':hover')||root.contains(document.activeElement)))return;
+    if(e.key==='ArrowRight'){e.preventDefault();userPaused=true;jump(idx+1)}
+    else if(e.key==='ArrowLeft'){e.preventDefault();userPaused=true;jump(idx-1)}
+    else if(e.key===' '&&!/^(BUTTON|A)$/.test((e.target||{}).tagName)){e.preventDefault();playBtn.click()}
+    else if(e.key==='r'||e.key==='R'){userPaused=false;reset();run()}
+  });
+
+  layout();reset();
+  if(window.ResizeObserver)new ResizeObserver(()=>layout()).observe(flow);else addEventListener('resize',layout);
+  new IntersectionObserver(es=>{
+    inView=es[0].isIntersecting;
+    if(inView&&!userPaused&&!playing&&idx<N-1&&!reduce){if(idx<0)reset();run()}
+    else if(!inView&&playing)pause();
+  },{threshold:.35}).observe(root);
 })();
 </script>
 </body>
