@@ -307,6 +307,74 @@ footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-fa
 @media (max-width:760px){.lf-row{grid-template-columns:1fr}.lf-row+.lf-row{margin-top:40px}.lf-lane{justify-self:start;padding:0 8px 0 0}.lf-flow{padding:42px 14px 20px}.lf-node{min-height:0}
   .lf-stp i{width:16px;height:16px;font-size:8px}.lf-stp-lab{font-size:7px;letter-spacing:0}.lf-stepper{padding:12px 6px 8px}}
 
+/* FREELANCE SECTION */
+.fr-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.fr-meta>div{background:var(--surface);padding:14px 16px}
+.fr-meta small{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;color:var(--text-muted);margin-bottom:4px}
+.fr-meta b{font-weight:500;font-size:14px;line-height:1.4;display:block}
+.fr-meta .ok{color:var(--green)}
+.fr-prob{display:grid;grid-template-columns:1fr 1.5fr;gap:20px;margin:28px 0 44px}
+.fr-prob h4,.fr-two h4{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--cyan);margin-bottom:12px;font-weight:500}
+.fr-prob p{font-size:14px;color:var(--text-muted)}
+.fr-prob p+p{margin-top:10px}
+.fr-prob p b{color:var(--text);font-weight:500}
+.fr-layers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.fr-layer{position:relative;background:#0e0e0e;border:1px solid var(--border);border-radius:10px;padding:14px}
+.fr-layer+.fr-layer::before{content:'▶';position:absolute;left:-10px;top:50%;transform:translateY(-50%);font-size:9px;color:var(--blue-bright);background:var(--surface);padding:2px 0}
+.fr-layer i{display:block;font:500 10px var(--mono);font-style:normal;color:var(--blue-bright);letter-spacing:.12em;margin-bottom:4px}
+.fr-layer b{display:block;font-size:15px;margin-bottom:4px}
+.fr-layer span{font-size:12.5px;color:var(--text-muted);display:block;line-height:1.45}
+.fr-h{font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--cyan);margin:52px 0 6px;text-transform:uppercase}
+.fr-sub{font-size:15px;color:var(--text-muted);max-width:640px;margin-bottom:22px}
+.fr-two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fr-way{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px}
+.fr-way.main{border-color:rgba(76,215,246,.35);box-shadow:0 0 30px var(--glow-cyan)}
+.fr-way .fr-use{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;padding:3px 10px;border-radius:100px;border:1px solid;margin-bottom:10px}
+.fr-way.main .fr-use{color:var(--green);border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.08)}
+.fr-way.rare .fr-use{color:var(--orange);border-color:rgba(255,183,134,.4);background:rgba(255,183,134,.08)}
+.fr-way h3{font-size:19px;letter-spacing:-.01em;margin-bottom:12px}
+.fr-way dl{display:grid;grid-template-columns:92px 1fr;gap:8px 14px;font-size:13px;border-top:1px solid var(--border);padding-top:14px}
+.fr-way dt{font-family:var(--mono);font-size:9.5px;color:var(--text-muted);letter-spacing:.1em;padding-top:3px}
+.fr-way dd{color:var(--text)}
+.fr-way .path{margin-top:14px;font-family:var(--mono);font-size:10.5px;color:var(--text-muted);background:#0e0e0e;border:1px dashed var(--border-accent);border-radius:8px;padding:9px 12px;line-height:1.7}
+.fr-way .path b{color:var(--cyan);font-weight:500}
+.fr-note{margin-top:14px;font-size:13px;color:var(--text-muted);border-left:2px solid var(--orange);padding:2px 0 2px 14px;max-width:760px}
+.fr-note b{color:var(--text);font-weight:500}
+.fr-sheet{overflow-x:auto;border:1px solid var(--border-accent);border-radius:12px;background:#0e0e0e}
+.fr-sheet table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11.5px;min-width:820px}
+.fr-sheet th{text-align:left;font-weight:500;font-size:10px;letter-spacing:.08em;color:var(--text-muted);background:var(--surface);padding:10px 14px;border-bottom:1px solid var(--border-accent);white-space:nowrap}
+.fr-sheet td{padding:11px 14px;border-bottom:1px solid var(--border);color:var(--text);white-space:nowrap}
+.fr-sheet tr:last-child td{border-bottom:0}
+.fr-sheet td.mute{color:#5c606c}
+.fr-chip{display:inline-block;padding:2px 9px;border-radius:100px;border:1px solid;font-size:10.5px}
+.fr-chip.g{color:var(--green);border-color:rgba(34,197,94,.45);background:rgba(34,197,94,.08)}
+.fr-chip.c{color:var(--cyan);border-color:rgba(76,215,246,.45);background:rgba(76,215,246,.08)}
+.fr-chip.o{color:var(--orange);border-color:rgba(255,183,134,.45);background:rgba(255,183,134,.08)}
+.fr-chip.m{color:var(--text-muted);border-color:var(--border);background:transparent}
+.fr-cap{margin-top:10px;font-family:var(--mono);font-size:10.5px;color:#5c606c;letter-spacing:.04em}
+#fl .lf-left,#fl .lf-side{min-width:0}
+.fr-facts{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:980px){.fr-facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.fr-facts{grid-template-columns:1fr}}
+.fr-hand{margin-top:34px;display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;background:rgba(77,142,255,.04);border:1px solid rgba(77,142,255,.2);border-radius:14px;padding:22px 26px}
+.fr-hand .big{font-size:44px;font-weight:700;color:var(--blue);letter-spacing:-.03em;line-height:1}
+.fr-hand .big small{display:block;font:500 10px var(--mono);letter-spacing:.14em;color:var(--text-muted);margin-top:6px}
+.fr-hand p{font-size:14px;color:var(--text-muted)}
+.fr-hand p b{color:var(--text);font-weight:500}
+.lf-nav #fl-next{background:var(--blue-bright);border-color:var(--blue-bright);color:#fff}
+.lf-ghost.warn{color:var(--orange);background:#241a10;border-color:rgba(255,183,134,.5)}
+#fl-stepper{grid-template-columns:repeat(26,minmax(0,1fr))}
+@media (max-width:980px){.fr-prob,.fr-two{grid-template-columns:1fr}.fr-meta{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){
+  .fr-layers{grid-template-columns:1fr}.fr-layer+.fr-layer::before{content:'▼';left:50%;top:-10px;transform:translateX(-50%)}
+  .fr-hand{grid-template-columns:1fr;gap:10px}
+  #fl-stepper{grid-template-columns:repeat(26,26px);overflow-x:auto}
+}
+
+.lf-node.err .lf-tag,.lf-node.err .lf-ico{color:var(--red)}
+.lf-node.err{border-color:rgba(248,113,113,.35)}
+.lf-pill.ERROR{color:var(--red);border-color:rgba(248,113,113,.5);background:rgba(248,113,113,.08)}
+
 /* RESPONSIVE */
 @media (max-width:980px){
   .explorer,.demo,.grid-2{grid-template-columns:1fr}
@@ -352,6 +420,7 @@ footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-fa
     <li><a href="#reliability">Reliability</a></li>
     <li><a href="#platform">Platform</a></li>
     <li><a href="#onboarding">Onboarding</a></li>
+    <li><a href="#freelance">Freelance</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="./interview.html" style="color:var(--cyan)">Interview Q&amp;A ↗</a></li>
@@ -651,6 +720,143 @@ footer{text-align:center;padding:32px;border-top:1px solid var(--border);font-fa
         <li>Partner documents are never used for AI model training.</li>
       </ul>
     </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FREELANCE -->
+<section id="freelance">
+  <div class="section-label">Freelance · Fiverr · Delivered</div>
+  <h2 class="section-title fade-in">Export lead <span>engine</span></h2>
+  <p class="section-lead fade-in" style="margin-bottom:28px">A client-ready n8n automation I built and delivered as a Fiverr order. It finds exporters on Google Maps, checks that each one is still trading, finds a way to contact them and scores the lead. Every business ends up in a Google Sheet with the evidence behind its score.</p>
+
+  <div class="fr-meta fade-in">
+    <div><small>PLATFORM</small><b>Fiverr</b></div>
+    <div><small>STATUS</small><b class="ok">Order completed</b></div>
+    <div><small>MY ROLE</small><b>Solo: design, build, test, document</b></div>
+    <div><small>DELIVERABLE</small><b>n8n workflow + 25-page handbook</b></div>
+  </div>
+  <div class="tags fade-in">
+    <span class="tag tag-blue">n8n</span><span class="tag tag-cyan">Google Places API</span><span class="tag tag-orange">Perplexity sonar</span>
+    <span class="tag tag-blue">OpenAI gpt-4o-mini</span><span class="tag tag-cyan">Google Sheets</span>
+  </div>
+
+  <div class="fr-prob fade-in">
+    <div class="card">
+      <h4>THE PROBLEM</h4>
+      <p><b>Google Maps knows a business exists. It does not know whether it is still trading.</b></p>
+      <p>A listing can sit unchanged for ten years after the company closed or left exporting. Checking hundreds of them by hand means searching each name, reading news and guessing whether a website looks current.</p>
+    </div>
+    <div class="card">
+      <h4>THE FIX: THREE LAYERS BEFORE A LEAD REACHES THE SHEET</h4>
+      <div class="fr-layers">
+        <div class="fr-layer"><i>01</i><b>Find</b><span>Google Maps, one city and one industry at a time, so results stay precise.</span></div>
+        <div class="fr-layer"><i>02</i><b>Verify</b><span>Live web search for recent activity, plus a check on whether the site looks touched.</span></div>
+        <div class="fr-layer"><i>03</i><b>Score</b><span>0 to 100 with a one-line reason, so the client sees the reasoning, not just a verdict.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fr-h fade-in">Watch one lead go through every node</div>
+  <p class="fr-sub fade-in">One fictional exporter, the full-batch path, node by node. Press play or click any node. Counters are illustrative.</p>
+
+  <div class="lf fade-in" id="fl" aria-label="Animated walkthrough of one lead moving through the export lead engine, node by node">
+    <div class="lf-bar">
+      <div class="lf-btns">
+        <button type="button" id="fl-play" aria-label="Play or pause the animation">❚❚ PAUSE</button>
+        <button type="button" id="fl-replay" aria-label="Replay from the start">↺ REPLAY</button>
+        <button type="button" id="fl-speed" aria-label="Change animation speed">SPEED 1×</button>
+      </div>
+      <div class="lf-clock" id="fl-clock">READY</div>
+    </div>
+    <div class="lf-main">
+      <div class="lf-left">
+        <div class="lf-metrics" id="fl-metrics" aria-label="Sample run counters, illustrative numbers"></div>
+        <div class="lf-flow" id="fl-flow">
+          <svg class="lf-svg" id="fl-svg" aria-hidden="true"></svg>
+          <div id="fl-rows"></div>
+          <div class="lf-packet" id="fl-packet" aria-hidden="true"><span class="lf-chip" id="fl-chip"></span></div>
+        </div>
+        <div class="lf-stepper" id="fl-stepper" role="group" aria-label="Jump to a step"></div>
+      </div>
+      <aside class="lf-side">
+        <div class="lf-nar">
+          <div class="lf-nh"><span id="fl-nstep">READY</span><span class="lf-pill" id="fl-npill">START</span></div>
+          <div class="lf-nbody" id="fl-nbody">
+            <h4 id="fl-ntitle"></h4>
+            <p id="fl-ntext"></p>
+            <div class="lf-key" id="fl-nkey" hidden><small>KEY IDEA</small><span id="fl-nkeytxt"></span></div>
+          </div>
+          <div class="lf-nav"><button type="button" id="fl-back">← BACK</button><button type="button" id="fl-next">NEXT →</button></div>
+          <div class="lf-hint">← → step · SPACE pause · R replay</div>
+        </div>
+        <div class="lf-rec" aria-label="Sample lead record">
+          <h5>LEAD RECORD</h5>
+          <p>One fictional exporter, filling in as it moves. Not real client data.</p>
+          <dl id="fl-rec"></dl>
+        </div>
+      </aside>
+    </div>
+    <p class="sr-only">A full batch starts from a manual trigger, clears the Leads and Errors tabs and expands ten cities into thirty city and industry searches. Google Maps returns businesses, which are flattened, deduplicated by place ID and filtered to those still operating. Perplexity checks the last twelve months of public activity and classifies the evidence. The site and one contact page are fetched to find an email and WhatsApp proof. OpenAI scores the lead from 0 to 100 and the lead is marked Qualified at 50 or above, otherwise Low Priority, then saved to the Leads tab. Failed leads are tagged with the failing stage and logged to an Errors tab.</p>
+  </div>
+
+  <div class="fr-h fade-in">Design decisions worth explaining</div>
+  <p class="fr-sub fade-in">The part that is not visible from the node names. These are the calls I made and why.</p>
+  <div class="facts fr-facts fade-in">
+    <div class="fact"><div class="big">2 AIs</div><h4>Two models, two jobs</h4><p>Perplexity <code>sonar</code> searches the live web to answer “is this company active?”. <code>gpt-4o-mini</code> in JSON mode scores it. A fixed rubric needs reliable output, not a bigger model.</p></div>
+    <div class="fact"><div class="big">4</div><h4>Honest evidence labels</h4><p><code>company_specific</code>, <code>general_industry</code>, <code>no_evidence</code> or <code>unknown</code>, with the real citation URLs from Perplexity’s own list. Industry news is no longer passed off as proof about one company.</p></div>
+    <div class="fact"><div class="big">Never</div><h4>WhatsApp is not guessed</h4><p>“Yes” needs a <code>wa.me</code> link or a number the page labels as WhatsApp. Otherwise it stays Unknown. No code path turns a plain phone number into a Yes.</p></div>
+    <div class="fact"><div class="big">≥ 50</div><h4>Label, don’t delete</h4><p>Qualified at 50 and above, Low Priority below. Every operating business gets a row, so the client can overrule the automation instead of trusting it blindly.</p></div>
+    <div class="fact"><div class="big">5 s</div><h4>Tuned, not guessed</h4><p>Perplexity started rejecting calls at a 2 s spacing, so its batch interval went to 5 s (OpenAI stays at 2 s) and was re-tested until every request passed. That is why a full run takes 35 to 45 minutes.</p></div>
+    <div class="fact"><div class="big">Logged</div><h4>Failures are never silent</h4><p>Four steps can fail. Each tags the failing stage, rewrites the API error as a plain sentence and logs it to an Errors tab. One bad lead never stops the other 299.</p></div>
+  </div>
+
+  <div class="fr-h fade-in">Two ways to start a run</div>
+  <p class="fr-sub fade-in">Both join one shared path at <b style="color:var(--text);font-weight:500">Prepare Query</b>, so every lead is processed identically whichever door it came through.</p>
+  <div class="fr-two fade-in">
+    <div class="fr-way main">
+      <span class="fr-use">USE MOST OFTEN</span>
+      <h3>n8n Form</h3>
+      <dl>
+        <dt>WHO</dt><dd>Anyone. No n8n login or knowledge needed</dd>
+        <dt>SPEED</dt><dd>A couple of minutes</dd>
+        <dt>SHEET</dt><dd>Adds rows only, never clears anything</dd>
+        <dt>BEST FOR</dt><dd>One city, one or a few industries, up to 20 results per search</dd>
+      </dl>
+      <div class="path"><b>Ad-hoc Lookup Form</b> → Normalize Form Input → Prepare Query</div>
+    </div>
+    <div class="fr-way rare">
+      <span class="fr-use">USE RARELY</span>
+      <h3>Manual Trigger</h3>
+      <dl>
+        <dt>WHO</dt><dd>Someone with access to the n8n account</dd>
+        <dt>SPEED</dt><dd>35 to 45 minutes, roughly 600 AI calls</dd>
+        <dt>SHEET</dt><dd>Clears and rebuilds both tabs</dd>
+        <dt>BEST FOR</dt><dd>The first full delivery or a deliberate monthly refresh</dd>
+      </dl>
+      <div class="path"><b>Run Full Batch</b> → Clear Leads → Clear Errors → Build City-Vertical List → Prepare Query</div>
+    </div>
+  </div>
+  <p class="fr-note fade-in"><b>Why only the full batch clears the sheet:</b> if a quick single-city lookup could wipe it, one small search would delete the client’s entire delivered dataset by accident. The everyday path is safe by default.</p>
+
+  <div class="fr-h fade-in">What lands in the sheet</div>
+  <p class="fr-sub fade-in">Every run writes to two tabs. A Leads row carries the score, the evidence type and the contact fields, so a Qualified lead can be acted on straight away.</p>
+  <div class="fr-sheet fade-in" role="region" aria-label="Sample Leads tab, fictional rows" tabindex="0">
+    <table>
+      <thead><tr><th>company_name</th><th>city</th><th>vertical</th><th>evidence_type</th><th>score</th><th>status</th><th>email</th><th>whatsapp_available</th></tr></thead>
+      <tbody>
+        <tr><td>Sample Textile Exports</td><td>Surat</td><td>Textile</td><td><span class="fr-chip c">company_specific</span></td><td>78</td><td><span class="fr-chip g">Qualified</span></td><td>info@sample-textile.example</td><td>Unknown</td></tr>
+        <tr><td>Demo Chem Traders</td><td>Mumbai</td><td>Chemicals</td><td><span class="fr-chip m">general_industry</span></td><td>56</td><td><span class="fr-chip g">Qualified</span></td><td>sales@demo-chem.example</td><td>Yes</td></tr>
+        <tr><td>Placeholder Pharma Co</td><td>Mumbai</td><td>Pharma</td><td><span class="fr-chip o">no_evidence</span></td><td>31</td><td><span class="fr-chip o">Low Priority</span></td><td class="mute">—</td><td>Unknown</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="fr-cap">FICTIONAL ROWS · THE REAL LEADS TAB HAS 22 COLUMNS, PLUS AN ERRORS TAB (TIMESTAMP, STAGE, CITY, VERTICAL, COMPANY, MESSAGE)</p>
+
+  <div class="fr-hand fade-in">
+    <div class="big">25<small>PAGE HANDBOOK</small></div>
+    <p><b>Handed over with a handbook written for a non-technical reader.</b> It explains the problem, why each of the two AI models was chosen, every node with a “why it’s here” line, how batching and rate limits work, which credentials to set up, and the open design decision I flagged instead of silently changing: whether weaker evidence should pull a score down, since that would change which leads count as Qualified.</p>
   </div>
 </section>
 
@@ -1236,6 +1442,247 @@ const WF = [
     userPaused=false;if(idx>=N-1)reset();run()});
   replayBtn.addEventListener('click',()=>{userPaused=false;reset();run()});
   speedBtn.addEventListener('click',()=>{speed=speed===1?2:1;speedBtn.textContent='SPEED '+speed+'×'});
+  backBtn.addEventListener('click',()=>{userPaused=true;jump(idx-1)});
+  nextBtn.addEventListener('click',()=>{userPaused=true;jump(idx+1)});
+  document.addEventListener('keydown',e=>{
+    if(e.ctrlKey||e.metaKey||e.altKey||/^(INPUT|TEXTAREA|SELECT)$/.test((e.target||{}).tagName))return;
+    if(!(root.matches(':hover')||root.contains(document.activeElement)))return;
+    if(e.key==='ArrowRight'){e.preventDefault();userPaused=true;jump(idx+1)}
+    else if(e.key==='ArrowLeft'){e.preventDefault();userPaused=true;jump(idx-1)}
+    else if(e.key===' '&&!/^(BUTTON|A)$/.test((e.target||{}).tagName)){e.preventDefault();playBtn.click()}
+    else if(e.key==='r'||e.key==='R'){userPaused=false;reset();run()}
+  });
+
+  layout();reset();
+  if(window.ResizeObserver)new ResizeObserver(()=>layout()).observe(flow);else addEventListener('resize',layout);
+  new IntersectionObserver(es=>{
+    inView=es[0].isIntersecting;
+    if(inView&&!userPaused&&!playing&&idx<N-1&&!reduce){if(idx<0)reset();run()}
+    else if(!inView&&playing)pause();
+  },{threshold:.35}).observe(root);
+})();
+</script>
+<script>
+// Animated walkthrough of one fictional lead through the export lead engine (freelance project), node by node.
+// Same engine as the lead-gen walkthrough above, driven by its own data. Reuses the .lf-* styles.
+(function(){
+  const $=id=>document.getElementById(id);
+  const root=$('fl');if(!root)return;
+  const flow=$('fl-flow'),svg=$('fl-svg'),rowsEl=$('fl-rows'),packet=$('fl-packet'),chip=$('fl-chip'),clockEl=$('fl-clock'),
+        recEl=$('fl-rec'),metEl=$('fl-metrics'),stpEl=$('fl-stepper'),playBtn=$('fl-play'),replayBtn=$('fl-replay'),speedBtn=$('fl-speed'),
+        backBtn=$('fl-back'),nextBtn=$('fl-next'),nStep=$('fl-nstep'),nPill=$('fl-npill'),nTitle=$('fl-ntitle'),nText=$('fl-ntext'),
+        nKey=$('fl-nkey'),nKeyTxt=$('fl-nkeytxt'),nBody=$('fl-nbody');
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const NS='http://www.w3.org/2000/svg';
+  const CLOCK0='READY';
+
+  const lanes=[
+    {n:1,name:'START A RUN',when:'FULL BATCH · 35–45 MIN',short:'1 · START',clock:'STAGE 1 · START A RUN'},
+    {n:2,name:'FIND',when:'GOOGLE MAPS',short:'2 · FIND',clock:'STAGE 2 · FIND'},
+    {n:3,name:'VERIFY',when:'LIVE WEB + WEBSITE',short:'3 · VERIFY',clock:'STAGE 3 · VERIFY'},
+    {n:4,name:'CONTACT DISCOVERY',when:'EMAIL + WHATSAPP',short:'4 · CONTACT',clock:'STAGE 4 · CONTACT DISCOVERY'},
+    {n:5,name:'SCORE & SAVE',when:'OPENAI · SHEETS',short:'5 · SCORE',clock:'STAGE 5 · SCORE & SAVE'},
+    {n:6,name:'ERROR SAFETY NET',when:'ANY FAILED LEAD',short:'6 · ERRORS',clock:'STAGE 6 · ERROR SAFETY NET'}
+  ];
+  // l lane · tag · t title · s sub · chip carried by the dot · cap narration · k key idea · d record fields · m counters · badge · ghost {text,warn} · db = Google Sheet node
+  const steps=[
+    {l:0,tag:'MANUAL',t:'Run Full Batch',s:'All 10 cities',chip:'start full run',cap:'A person clicks Execute. A full run spends real API credit and takes 35 to 45 minutes, so it never starts on a schedule.',k:'A button, not a timer: paid runs only start when someone decides they should.',d:{}},
+    {l:0,tag:'SHEETS',t:'Clear Leads Sheet',s:'Keeps the header row',db:1,chip:'Leads tab cleared',cap:'Wipes the data rows. Without it a second run would stack another 300 rows on the first, with no way to tell the runs apart.',d:{}},
+    {l:0,tag:'SHEETS',t:'Clear Errors Sheet',s:'Fresh error log',db:1,chip:'Errors tab cleared',cap:'Old errors from an already-fixed run should not mix with today’s, or you cannot tell what is new.',d:{}},
+    {l:0,tag:'CODE',t:'Build City-Vertical List',s:'10 cities → 30 searches',chip:'“Textile exporters in Surat”',cap:'Expands the 10-city plan into 30 precise searches, one industry per city.',k:'“Textile exporters in Surat” returns far better results than a vague “exporters in Surat”.',d:{city:'Surat',vertical:'Textile'},m:{searches:30}},
+    {l:0,tag:'MERGE',t:'Prepare Query',s:'Both entry points join',chip:'one search at a time',cap:'The junction where the full batch and the ad-hoc form join one path. From here on it no longer matters which started the run. No data changes.',d:{}},
+
+    {l:1,tag:'MAPS',t:'Google Maps Discovery',s:'Places API · ≤10 per search',chip:'place_id ChIJ-demo-0042',cap:'Asks Google Maps for businesses in each search and gets back name, address, phone, website, rating, review count and open or closed status.',d:{company:'Sample Textile Exports',place_id:'ChIJ-demo-0042'},m:{found:300}},
+    {l:1,tag:'CODE',t:'Flatten & Tag Leads',s:'One row per business',chip:'row + city/vertical tag',cap:'Unpacks each search’s bundle into one row per business and attaches the city and industry it came from. This is the only place that label is attached.',d:{}},
+    {l:1,tag:'CODE',t:'Deduplicate Leads',s:'By Google place ID',ghost:{t:'✕ duplicate place_id'},chip:'unique place_id ✓',cap:'A company can match two industry searches. Matching on Google’s permanent ID, not the name, removes the repeats reliably.',d:{},m:{dropped:3}},
+    {l:1,tag:'FILTER',t:'Is Operational',s:'Drops closed listings',ghost:{t:'✕ permanently closed'},chip:'OPERATIONAL ✓',cap:'Drops anything Google already marks closed, before a paid AI call is spent on it. It does not filter on rating or review count.',k:'B2B exporters rarely collect Google reviews, so a quiet listing is not proof of a dead company.',d:{status:'OPERATIONAL',website:'sample-textile.example'},m:{dropped:4}},
+
+    {l:2,tag:'AI',t:'Perplexity Recent Activity',s:'sonar · live web search',badge:'⏱ 5 s between calls',chip:'sonar · last 12 months',cap:'Asks Perplexity’s sonar model, which searches the live web, for public activity in the last 12 months, and to say honestly what kind of evidence it found.',k:'A model that searches the web checks whether a company is alive. A cheaper structured model does the scoring. Two AIs, two jobs.',d:{},m:{ai:296}},
+    {l:2,tag:'PARSE',t:'Parse Perplexity Signal',s:'Clean text, evidence, sources',chip:'company_specific · 3 sources',cap:'Strips citation marks and markdown so the sheet shows a plain sentence, and reads the evidence type and the real source URLs.',k:'Source links come from Perplexity’s own citation list, not from a model typing URLs from memory.',d:{evidence:'company_specific'}},
+    {l:2,tag:'FILTER',t:'Has Website',s:'Skip leads with no site',ghost:{t:'✕ no website → short branch'},chip:'website found ✓',cap:'About a third of small exporters list no website. Those take a short branch that leaves contact fields blank rather than guessing. This lead has one.',d:{}},
+    {l:2,tag:'HTTP',t:'Fetch Website',s:'Allowed to fail quietly',badge:'8 s timeout',chip:'GET sample-textile.example',cap:'Loads the homepage as a second, independent signal. A slow or dead site fails quietly and never costs the lead.',d:{}},
+    {l:2,tag:'CHECK',t:'Website Freshness',s:'Recent year on the page?',chip:'recent year found',cap:'Looks for a recent year, such as a copyright date, as a rough guess at whether the site is maintained.',k:'A soft hint, never a filter. Plenty of active exporters never touch their website.',d:{freshness:'recent'}},
+
+    {l:3,tag:'PARSE',t:'Extract Homepage Links',s:'Contact, About or Export',chip:'/contact link found',cap:'Looks on the homepage for a link to Contact Us, About Us or Export/Products, in that priority, and grabs any email or WhatsApp already on the page or footer.',d:{}},
+    {l:3,tag:'FILTER',t:'Has Contact Page Link',s:'Anything more to fetch?',chip:'contact page ✓',cap:'Not every site has a separate contact page. With no link, the next fetch is skipped.',d:{}},
+    {l:3,tag:'HTTP',t:'Fetch Contact Page',s:'One extra page only',badge:'8 s timeout',chip:'GET /contact',cap:'Contact pages hold the strongest evidence, so this is the one extra page fetched.',k:'Fetching Contact, About and Export separately would roughly triple the website requests for little extra gain.',d:{}},
+    {l:3,tag:'MERGE',t:'Merge Contact Sources',s:'Fetched + skipped branches',chip:'one row per lead',cap:'Rejoins the “contact page fetched” and “nothing to fetch” branches into one stream.',d:{}},
+    {l:3,tag:'PARSE',t:'Extract Contact Info',s:'Email + WhatsApp rules',chip:'mailto: on /contact',cap:'A mailto: link on the Contact page wins as the best email. Then a visible address there, then the homepage or footer. Confidence is set to match.',k:'A phone number is never assumed to be WhatsApp. “Yes” needs a wa.me link or a number the page labels WhatsApp. Otherwise it stays Unknown.',d:{email:'info@sample-textile.example',whatsapp:'Unknown'}},
+
+    {l:4,tag:'MERGE',t:'Merge Website Signal',s:'Site + no-site branches',chip:'all signals, one row',cap:'Rejoins the has-website and no-website branches so scoring sees exactly one row per lead.',d:{}},
+    {l:4,tag:'AI',t:'OpenAI Scoring',s:'gpt-4o-mini · JSON mode',badge:'⏱ 2 s between calls',chip:'{"score":78,"reason":…}',cap:'Sends the Maps data, web evidence and site signal to gpt-4o-mini, which must reply with a score from 0 to 100 and a one-line reason.',k:'A simple fixed rubric needs reliable output, not a bigger model. JSON mode forces one parseable shape every time.',d:{score:78},m:{ai:592}},
+    {l:4,tag:'GATE',t:'Parse Score & Status',s:'50 and above qualifies',ghost:{t:'score 31 → Low Priority · still saved',warn:1},chip:'78 ≥ 50 → Qualified',cap:'Reads the JSON, falling back safely if it is malformed, and applies the 50-point line. This is the only place the threshold lives.',k:'Nothing is thrown away silently. Weaker leads are labelled Low Priority, not deleted, so the client can overrule the automation.',d:{qualification:'Qualified'},m:{qualified:211}},
+    {l:4,tag:'SHEETS',t:'Append Qualified Lead',s:'Leads tab · 22 columns',db:1,chip:'row saved to Leads',cap:'Writes the finished row into the Leads tab: details, evidence and sources, score and reason, and the contact fields.',k:'One dedicated save step makes the whole flow easier to reason about and safer to change.',d:{}},
+
+    {l:5,tag:'ERROR',t:'Tag Stage',s:'Which step failed?',badge:'429 rate limit',chip:'another lead · Perplexity',cap:'A different lead hits a rate limit. Google Maps, Perplexity, OpenAI and the Sheets write can each fail, and a tag records exactly which one.',d:{}},
+    {l:5,tag:'CODE',t:'Format Error Row',s:'Plain-English message',chip:'“Rate limit reached”',cap:'Turns the raw API error, full of brackets and codes, into one sentence a non-technical reader can act on.',d:{}},
+    {l:5,tag:'SHEETS',t:'Append Error Row',s:'Errors tab',db:1,chip:'logged, run continues',cap:'Writes it to the Errors tab and the run carries on.',k:'One failed lead never stops the other 299. Failures are logged, not lost.',d:{},m:{errors:2}}
+  ];
+  const N=steps.length;
+  const fields=['city','vertical','company','place_id','status','website','evidence','freshness','email','whatsapp','score','qualification'];
+  const metrics=[['searches','SEARCHES'],['found','PLACES FOUND'],['dropped','DUPES + CLOSED'],['ai','AI CALLS'],['qualified','QUALIFIED'],['errors','ERRORS LOGGED']];
+  const ICON={MANUAL:'M8 5v14l11-7z',CODE:'M8 8l-5 4 5 4 M16 8l5 4-5 4 M14 5l-4 14',
+    SHEETS:'M4 4h16v16H4z M4 10h16 M4 15h16 M10 4v16',MERGE:'M6 3v5a5 5 0 0 0 5 5h2 M18 3v5a5 5 0 0 1-5 5h-2 M12 13v8',
+    MAPS:'M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z M12 12a2 2 0 1 0 .01 0',FILTER:'M3 4h18l-7 8v6l-4 2v-8z',
+    AI:'M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z',
+    PARSE:'M11 4a7 7 0 1 0 .01 0 M16 16l5 5',HTTP:'M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1 M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1',
+    CHECK:'M12 3a9 9 0 1 0 .01 0 M12 7v5l3 2',GATE:'M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z M8.5 12l2.5 2.5 4.5-5',
+    ERROR:'M12 3l10 18H2z M12 10v5 M12 18h.01'};
+  // pill label + style class
+  const kindOf=s=>s.db?['SHEET','DATABASE']:s.tag==='MANUAL'?['TRIGGER','TRIGGER']:(s.tag==='GATE'||s.tag==='FILTER'||s.tag==='CHECK')?['DECISION','DECISION']:s.tag==='ERROR'?['ERROR','ERROR']:s.tag==='AI'?['AI','ACTION']:['ACTION','ACTION'];
+  function icon(tag){const e=document.createElementNS(NS,'svg');e.setAttribute('viewBox','0 0 24 24');e.setAttribute('class','lf-ico');e.setAttribute('aria-hidden','true');
+    e.setAttribute('fill','none');e.setAttribute('stroke','currentColor');e.setAttribute('stroke-width','1.8');e.setAttribute('stroke-linecap','round');e.setAttribute('stroke-linejoin','round');
+    const p=document.createElementNS(NS,'path');p.setAttribute('d',ICON[tag]||ICON.CODE);e.append(p);return e}
+
+  // trailing dots for the comet effect
+  const trail=[1,2,3].map(k=>{const t=document.createElement('div');t.className='lf-packet tr t'+k;t.setAttribute('aria-hidden','true');flow.insertBefore(t,packet);return t});
+  const pk=[packet,...trail];
+
+  // nodes
+  const nodes=[];let userPaused=false;
+  lanes.forEach((ln,li)=>{
+    const row=document.createElement('div');row.className='lf-row';
+    const lab=document.createElement('div');lab.className='lf-lane';
+    const b=document.createElement('b');b.textContent='STAGE '+ln.n;lab.append(b,' · '+ln.name+' · '+ln.when);row.append(lab);
+    steps.forEach((st,i)=>{
+      if(st.l!==li)return;
+      const n=document.createElement('button');n.type='button';n.className='lf-node'+(st.db?' db':'')+(st.tag==='ERROR'?' err':'');
+      const tg=document.createElement('span');tg.className='lf-tag';tg.textContent=st.tag;
+      const ti=document.createElement('span');ti.className='lf-title';ti.textContent=st.t;
+      const su=document.createElement('span');su.className='lf-sub';su.textContent=st.s;
+      n.append(icon(st.tag),tg,ti,su);
+      if(st.badge){const bg=document.createElement('span');bg.className='lf-badge';bg.textContent=st.badge;n.append(bg)}
+      n.setAttribute('aria-label','Step '+(i+1)+': '+st.t+'. '+st.cap);
+      n.addEventListener('click',()=>{userPaused=true;jump(i)});
+      row.append(n);nodes[i]=n;
+    });
+    rowsEl.append(row);
+  });
+
+  // stepper (numbered timeline grouped by stage)
+  const stps=[];
+  steps.forEach((st,i)=>{const b=document.createElement('button');b.type='button';b.className='lf-stp'+(i===0?' first':'')+(i===N-1?' last':'');
+    const n=document.createElement('i');n.textContent=i+1;b.append(n);b.title=(i+1)+'. '+st.t;b.setAttribute('aria-label','Go to step '+(i+1)+': '+st.t);
+    b.addEventListener('click',()=>{userPaused=true;jump(i)});stpEl.append(b);stps.push(b)});
+  lanes.forEach((ln,li)=>{const c=steps.filter(s=>s.l===li).length,d=document.createElement('div');d.className='lf-stp-lab';d.textContent=ln.short;d.style.gridColumn='span '+c;stpEl.append(d)});
+
+  // metrics + record
+  const metNum={};
+  metrics.forEach(([k,l])=>{const w=document.createElement('div');w.className='lf-m'+(k==='errors'?' bad':'');const s=document.createElement('small');s.textContent=l;const n=document.createElement('b');n.textContent='0';n.dataset.v=0;w.append(s,n);metEl.append(w);metNum[k]=n});
+  const recDd={};
+  fields.forEach(f=>{const w=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=f;dd.textContent='—';dd.className='empty';w.append(dt,dd);recEl.append(w);recDd[f]=dd});
+
+  function setNum(el,to,tween){
+    const from=+el.dataset.v||0,tk=(+el.dataset.tk||0)+1;el.dataset.tk=tk;el.dataset.v=to;
+    const box=el.parentNode;box.classList.toggle('hot',to>0);
+    if(!tween||reduce||from===to){el.textContent=to;return}
+    box.animate([{transform:'scale(1)'},{transform:'scale(1.07)'},{transform:'scale(1)'}],{duration:500});
+    const t0=performance.now();
+    (function f(t){if(+el.dataset.tk!==tk)return;const p=Math.min(1,(t-t0)/700);el.textContent=Math.round(from+(to-from)*p);if(p<1)requestAnimationFrame(f)})(t0);
+  }
+  function renderMetrics(upTo,tween){const m={};for(let i=0;i<=upTo;i++)Object.assign(m,steps[i].m||{});
+    metrics.forEach(([k])=>setNum(metNum[k],m[k]||0,tween))}
+  function renderRec(upTo,flash){
+    const rec={};for(let i=0;i<=upTo;i++)Object.assign(rec,steps[i].d);
+    fields.forEach(f=>{const dd=recDd[f],has=f in rec,txt=has?String(rec[f]):'—',changed=dd.textContent!==txt;
+      dd.textContent=txt;dd.className=has?'':'empty';
+      if(f==='qualification')dd.style.color=has?'var(--green)':'';
+      if(f==='evidence')dd.style.color=has?'var(--cyan)':'';
+      if(flash&&changed&&has){const w=dd.parentNode;w.classList.add('new');setTimeout(()=>w.classList.remove('new'),1400)}});
+  }
+  function renderNar(i,animate){
+    if(i<0){nStep.textContent='READY';nPill.textContent='START';nPill.className='lf-pill';nTitle.textContent='A lead’s journey, node by node';nText.textContent='Press play, step with the arrow keys, or click any node or number to jump.';nKey.hidden=true;return}
+    const st=steps[i],kd=kindOf(st);
+    nStep.textContent='STEP '+(i+1)+' / '+N;nPill.textContent=kd[0];nPill.className='lf-pill '+kd[1];
+    nTitle.textContent=st.t;nText.textContent=st.cap;nKey.hidden=!st.k;nKeyTxt.textContent=st.k||'';
+    if(animate&&!reduce)nBody.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:380,easing:'ease-out'});
+  }
+
+  // geometry
+  function ctr(n){const r=n.getBoundingClientRect(),f=flow.getBoundingClientRect();
+    return{x:r.left-f.left+r.width/2,y:r.top-f.top+r.height/2,bottom:r.bottom-f.top}}
+  function route(a,b){const pa=ctr(nodes[a]),pb=ctr(nodes[b]);
+    if(Math.abs(pa.x-pb.x)<6||Math.abs(pa.y-pb.y)<6)return[pa,pb];
+    const my=pa.bottom+18;return[pa,{x:pa.x,y:my},{x:pb.x,y:my},pb]}
+  const tf=(x,y)=>'translate('+x+'px,'+y+'px)';
+  const setPk=(x,y)=>pk.forEach(e=>e.style.transform=tf(x,y));
+  let paths=[];
+  function layout(){
+    svg.replaceChildren();paths=[];
+    for(let i=1;i<N;i++){const p=document.createElementNS(NS,'path');
+      p.setAttribute('d',route(i-1,i).map((q,k)=>(k?'L':'M')+q.x.toFixed(1)+' '+q.y.toFixed(1)).join(' '));
+      if(i<=idx)p.classList.add('done');svg.append(p);paths[i]=p}
+    if(idx>=0){const c=ctr(nodes[idx]);setPk(c.x,c.y)}
+  }
+
+  // controller
+  let idx=-1,playing=false,tok=0,inView=false,speed=1,anims=[],sleepT=null,sleepR=null;
+  function setBtn(){playBtn.textContent=playing?'❚❚ PAUSE':(idx>=N-1?'▶ PLAY AGAIN':'▶ PLAY');backBtn.disabled=idx<=0;nextBtn.disabled=idx>=N-1;backBtn.style.opacity=backBtn.disabled?.4:1;nextBtn.style.opacity=nextBtn.disabled?.4:1}
+  function sleep(ms){return new Promise(r=>{sleepR=r;sleepT=setTimeout(r,ms)})}
+  function wake(){clearTimeout(sleepT);if(sleepR)sleepR()}
+  function rest(on){pk.forEach(e=>e.classList.toggle('rest',on))}
+  function stopAnims(){anims.forEach(a=>a.cancel());anims=[]}
+  function clearWave(){nodes.forEach(n=>{n.classList.remove('wave');n.style.animationDelay=''})}
+  function burst(i){const c=ctr(nodes[i]),e=document.createElement('div');e.className='lf-burst'+(steps[i].db?' o':'');e.style.left=c.x+'px';e.style.top=c.y+'px';flow.append(e);setTimeout(()=>e.remove(),900)}
+  function setChip(i,pop){chip.textContent=steps[i].chip;if(pop&&!reduce)chip.animate([{transform:'translateX(-50%) scale(.7)',opacity:0},{transform:'translateX(-50%) scale(1.08)',opacity:1},{transform:'translateX(-50%) scale(1)'}],{duration:380,easing:'ease-out'})}
+  function show(i,flash){
+    clearWave();rest(true);
+    nodes.forEach((n,k)=>{n.classList.toggle('done',k<i);n.classList.toggle('active',k===i)});
+    paths.forEach((p,k)=>p&&p.classList.toggle('done',k<=i));
+    stps.forEach((b,k)=>{b.classList.toggle('done',k<i);b.classList.toggle('active',k===i);b.classList.toggle('reached',k<=i)});
+    clockEl.textContent=lanes[steps[i].l].clock;setChip(i,flash);
+    renderNar(i,flash);renderRec(i,flash);renderMetrics(i,flash);
+    if(flash){burst(i);
+      const g0=steps[i].ghost;
+      if(g0){const c=ctr(nodes[i]),g=document.createElement('div');g.className='lf-ghost'+(g0.warn?' warn':'');g.textContent=g0.t;
+        g.style.left=(c.x+30)+'px';g.style.top=(c.y+38)+'px';flow.append(g);setTimeout(()=>g.remove(),2000)}
+      if(i===N-1&&!reduce)nodes.forEach((n,k)=>{n.classList.remove('active');n.style.animationDelay=(k*40)+'ms';n.classList.add('wave')})}
+    setBtn();
+  }
+  async function advance(i,t){
+    const prev=idx;idx=i;
+    if(prev<0||reduce){const c=ctr(nodes[i]);setPk(c.x,c.y);packet.classList.add('on');trail.forEach(x=>x.classList.add('on'));show(i,true);return}
+    rest(false);
+    const pts=route(prev,i);let len=0;const seg=[0];
+    for(let k=1;k<pts.length;k++){len+=Math.hypot(pts[k].x-pts[k-1].x,pts[k].y-pts[k-1].y);seg.push(len)}
+    const dur=Math.min(1100,Math.max(450,len*2.2))/speed;
+    const frames=pts.map((p,k)=>({transform:tf(p.x,p.y),offset:len?seg[k]/len:k/(pts.length-1)}));
+    anims=pk.map((e,k)=>e.animate(frames,{duration:dur,delay:k*70/speed,easing:'ease-in-out',fill:'forwards'}));
+    try{await Promise.all(anims.map(a=>a.finished))}catch(e){return}
+    if(t!==tok)return;
+    const e=pts[pts.length-1];setPk(e.x,e.y);stopAnims();
+    show(i,true);
+  }
+  // dwell scales with how much there is to read
+  const dwell=s=>Math.min(4400,1500+(s.cap.length+(s.k||'').length)*12);
+  async function run(){
+    const t=++tok;playing=true;setBtn();
+    while(t===tok&&idx<N-1){
+      await advance(idx+1,t);
+      if(t!==tok)return;
+      if(idx>=N-1)break;
+      await sleep(dwell(steps[idx])/speed);
+      if(t!==tok)return;
+    }
+    if(t===tok){playing=false;setBtn()}
+  }
+  function pause(){tok++;playing=false;if(anims.length){stopAnims();if(idx>=0)show(idx,false);layout()}wake();setBtn()}
+  function jump(i){
+    i=Math.max(0,Math.min(N-1,i));
+    tok++;playing=false;wake();stopAnims();
+    idx=i;layout();packet.classList.add('on');trail.forEach(x=>x.classList.add('on'));show(i,false);
+  }
+  function reset(){tok++;playing=false;wake();stopAnims();clearWave();
+    idx=-1;pk.forEach(e=>e.classList.remove('on'));chip.textContent='';
+    nodes.forEach(n=>n.classList.remove('done','active'));paths.forEach(p=>p&&p.classList.remove('done'));
+    stps.forEach(b=>b.classList.remove('done','active','reached'));
+    clockEl.textContent=CLOCK0;renderRec(-1,false);renderMetrics(-1,false);renderNar(-1,false);setBtn()}
+
+  playBtn.addEventListener('click',()=>{
+    if(playing){userPaused=true;pause();return}
+    userPaused=false;if(idx>=N-1)reset();run()});
+  replayBtn.addEventListener('click',()=>{userPaused=false;reset();run()});
+  speedBtn.addEventListener('click',()=>{speed=speed>=3?1:speed+1;speedBtn.textContent='SPEED '+speed+'×'});
   backBtn.addEventListener('click',()=>{userPaused=true;jump(idx-1)});
   nextBtn.addEventListener('click',()=>{userPaused=true;jump(idx+1)});
   document.addEventListener('keydown',e=>{
